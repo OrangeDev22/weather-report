@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 import { useFetch } from "./useFetch";
 import CurrentWeather from "./CurrentWeather";
 const App = () => {
@@ -17,7 +16,6 @@ const App = () => {
         city={details.city.toLowerCase()}
         unit={unit}
       ></CurrentWeather>
-      <img src={details.location.country_flag} alt="country flag" />
     </>
   );
 };
