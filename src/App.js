@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useFetch } from "./useFetch";
-import CurrentWeather from "./CurrentWeather";
+import WeatherCard from "./WeatherCard";
+import Daily from "./Daily";
 const App = () => {
   const url =
     "http://api.ipstack.com/check?access_key=d4d7e15716eb60585620301f3408eaa5&format=1";
@@ -12,10 +13,13 @@ const App = () => {
 
   return (
     <>
-      <CurrentWeather
-        city={details.city.toLowerCase()}
-        unit={unit}
-      ></CurrentWeather>
+      <main>
+        <WeatherCard
+          city={details.city.toLowerCase()}
+          unit={unit}
+        ></WeatherCard>
+        <Daily city={details.city.toLowerCase()}></Daily>
+      </main>
     </>
   );
 };
