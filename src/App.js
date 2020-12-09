@@ -10,6 +10,7 @@ const App = () => {
 
   console.log(details);
   if (loading) return <div>Loading...</div>;
+  let { city, latitude, longitude } = details;
 
   return (
     <>
@@ -18,7 +19,7 @@ const App = () => {
           city={details.city.toLowerCase()}
           unit={unit}
         ></WeatherCard>
-        <Daily city={details.city.toLowerCase()}></Daily>
+        <Daily city={city} latitude={latitude} longitude={longitude}></Daily>
       </main>
     </>
   );

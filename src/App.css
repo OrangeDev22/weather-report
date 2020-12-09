@@ -29,8 +29,8 @@ body {
 }
 .weather-card_container {
   width: 90vw;
-  margin: 0 auto;
   max-width: var(--max-width);
+  margin: 0 auto;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -47,65 +47,68 @@ body {
 }
 .clear_sky {
   background: rgb(103, 175, 221);
-  background: linear-gradient(
+  /* background: linear-gradient(
     180deg,
     rgba(103, 175, 221, 1) 0%,
     rgba(136, 184, 214, 1) 57%
-  );
+  ); */
 }
-
+.broken_clouds,
+.overcast_clouds {
+  background: rgba(112, 112, 112, 0.561);
+}
 .few_clouds,
-.scattered_clouds,
-.broken_clouds {
-  background: rgb(188, 212, 220);
-  background: linear-gradient(
+.scattered_clouds {
+  background: rgba(127, 165, 189, 1);
+  /* background: linear-gradient(
     0deg,
     rgba(188, 212, 220, 1) 0%,
     rgba(127, 165, 189, 1) 100%
-  );
+  ); */
 }
 .mist {
   background: rgb(74, 64, 123);
-  background: linear-gradient(
+  /* background: linear-gradient(
     180deg,
     rgba(74, 64, 123, 1) 0%,
     rgba(158, 136, 197, 1) 100%
-  );
+  ); */
 }
 .rain {
-  background: rgb(127, 167, 207);
-  background: linear-gradient(
+  background: rgba(125, 123, 160, 1);
+  /* background: linear-gradient(
     180deg,
     rgba(127, 167, 207, 1) 0%,
     rgba(125, 123, 160, 1) 41%,
     rgba(209, 180, 176, 1) 100%
-  );
+  ); */
 }
 .thunderstorm {
   background: rgb(76, 114, 115);
-  background: linear-gradient(
+  /* background: linear-gradient(
     180deg,
     rgba(76, 114, 115, 1) 0%,
     rgba(134, 185, 176, 1) 78%,
     rgba(208, 214, 214, 1) 100%
-  );
+  ); */
 }
-.shower_rain {
+.shower_rainm,
+.light_rain {
   background: rgb(87, 97, 113);
-  background: linear-gradient(
+  /* background: linear-gradient(
     180deg,
     rgba(87, 97, 113, 1) 0%,
     rgba(109, 116, 124, 1) 5%,
     rgba(173, 177, 180, 1) 79%
-  );
+  ); */
 }
 .snow {
   background: rgb(78, 95, 110);
-  background: linear-gradient(
+  /* background: linear-gradient(
     180deg,
     rgba(78, 95, 110, 1) 0%,
     rgba(153, 164, 175, 1) 100%
-  );
+  ); */
 }
 .main {
   display: flex;
@@ -144,7 +147,7 @@ p {
   text-transform: capitalize;
   font-size: 1rem;
   letter-spacing: 0.1re;
-  margin-top: 2rem;
+
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   cursor: pointer;
@@ -153,12 +156,80 @@ p {
 .temperature {
   font-size: 2.5em;
 }
-.description_container {
-}
 .weather_description {
   margin: 2px;
   padding: 2px;
 }
-/* .btn {
-  align-self: flex-end;
+.daily-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.daily-card_details {
+  width: 90vw;
+  max-width: var(--max-width);
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 5px;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+}
+.daily-card_details span p {
+  background: rgb(230, 173, 173);
+}
+.daily-card_temperatures {
+  display: flex;
+  margin: 5px;
+}
+.daily-card_date {
+  margin: 5px;
+}
+.daily-card_date_wrapper {
+  width: 10vh;
+}
+.daily-card_date_wrapper span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+}
+.description_wrapper {
+  width: 5vh;
+}
+.daily-card_header {
+  display: flex;
+  width: 90vw;
+  align-items: center;
+  justify-content: center;
+  max-width: var(--max-width);
+  margin: 10px;
+}
+/*
+  code below will be used in the future
+*/
+/*
+
+.daily-card {
+  position: relative;
+
+  display: flex;
+
+  overflow-x: auto;
+}
+.daily-card::-webkit-scrollbar {
+  width: 0;
+}
+
+.daily-card .daily-card_details {
+  min-width: 110px;
+
+  text-align: center;
+  background-color: rgba(103, 175, 221, 1);
 } */

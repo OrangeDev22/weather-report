@@ -30,33 +30,7 @@ const WeatherCard = ({ city, unit }) => {
   let dayTime = () => {
     return hours < 17 ? "day" : "night";
   };
-  let iconKey = () => {
-    // description = "clear sky";
-    // console.log(description);
 
-    switch (description) {
-      case "clear sky":
-        return "clear";
-      case "few clouds":
-        return "mostlycloudy";
-      case "scattered clouds":
-        return "cloudy";
-      case "broken clouds":
-        return "partlycloudy";
-      case "shower rain":
-        return "flurries";
-      case "rain":
-        return "rain";
-      case "thunderstorm":
-        return "tstorms";
-      case "snow":
-        return "snow";
-      case "mist":
-        return "fog";
-      default:
-        return "unknown";
-    }
-  };
   //uncomment next line only for testing
   //description = "mist";
   return (
@@ -72,7 +46,9 @@ const WeatherCard = ({ city, unit }) => {
             </p>
             <div className="weather-card_panel main">
               <i
-                className={`wu wu-${iconKey()} wu-128 wu-solid-white wu-${dayTime()}`}
+                className={`wu wu-${iconKey(
+                  description
+                )} wu-128 wu-solid-white wu-${dayTime()}`}
               ></i>
               <p className="temperature">
                 {Math.round(convertTemperature(temp))}°{""}
@@ -95,5 +71,35 @@ const WeatherCard = ({ city, unit }) => {
     </>
   );
 };
+export let iconKey = (element) => {
+  // description = "clear sky";
+  // console.log(description);
 
+  switch (element) {
+    case "clear sky":
+      return "clear";
+    case "few clouds":
+      return "mostlycloudy";
+    case "scattered clouds":
+      return "partlycloudy";
+    case "broken clouds":
+      return "cloudy";
+    case "overcast clouds":
+      return "cloudy";
+    case "shower rain":
+      return "flurries";
+    case "rain":
+      return "rain";
+    case "light rain":
+      return "flurries";
+    case "thunderstorm":
+      return "tstorms";
+    case "snow":
+      return "snow";
+    case "mist":
+      return "fog";
+    default:
+      return "unknown";
+  }
+};
 export default WeatherCard;
