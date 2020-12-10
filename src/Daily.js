@@ -1,28 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useFetch } from "./useFetch";
 import { iconKey } from "./WeatherCard";
-const Daily = ({ city, latitude, longitude }) => {
+import { BiChevronsUp } from "react-icons/bi";
+import "./css/Daily.css";
+const Daily = ({ details }) => {
+  console.log("details in daily", details);
   const [show, setShow] = useState(true);
   const [position, setPosition] = useState(0);
-  const base = "https://api.openweathermap.org/data/2.5/onecall";
-  const key = "05e47cb6f8fc8afa437fc32af1218b36";
-  const query = `?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${key}&units=metric`;
-  const { loading, details } = useFetch(base + query);
+  // const base = "https://api.openweathermap.org/data/2.5/onecall";
+  // const key = "05e47cb6f8fc8afa437fc32af1218b36";
+  // const query = `?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${key}&units=metric`;
+  // const { loading, details } = useFetch(base + query);
   let { daily } = details;
-  let toggleComponent = (index) => {
-    setShow(!show);
-    setPosition(index);
-  };
+  // console.log(base + query);
   let DailyList = () => {
     return daily.map((element, index) => {
       //{ dt, description, day, dayNumber, month, max, min }
       return <DayItem element={element} key={index} />;
     });
   };
-
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
 
   return (
     <>
@@ -50,6 +46,7 @@ let DayItem = (props) => {
     <>
       <section
         className={`daily-card_details ${description.replace(" ", "_")}`}
+        onClick={() => setShowDetails(!showDetails)}
       >
         <div className="daily-card_details-header">
           <div className="daily-card_date_wrapper">
@@ -72,28 +69,22 @@ let DayItem = (props) => {
                 : ""}
             </p>
           </div>
-          <button className="btn" onClick={() => setShowDetails(!showDetails)}>
-            more
-          </button>
+          <h3 className={`arrow-icon ${showDetails ? "rotate-180" : ""}`}>
+            <BiChevronsUp size={32} />
+          </h3>
         </div>
-        {showDetails && <DayDetails element={props.element} />}
+        <DayDetails element={props.element} showDetails={showDetails} />
+        {/* {showDetails && (
+          <DayDetails element={props.element} showDetails={showDetails} />
+        )} */}
       </section>
     </>
   );
 };
-let DayDetails = ({ element }) => {
-  // <div className="daily-card_details-header-item-contet">
-  //   <div className="panel left">
-  //     <p>
-  //       heeey baby
-  //       <span>watch out</span>
-  //     </p>
-  //   </div>
-  //   <div className="panel">
-  //     <h1>I im watching tv</h1>
-  //   </div>
-  // </div>;
-  console.log("element", element);
+let DayDetails = ({ element, showDetails }) => {
+  const panelReference = useRef(null);
+  const itemContentReference = useRef(null);
+
   let { sunrise, sunset, temp, humidity, pressure, wind_speed } = element;
   let { night, eve, morn } = temp;
   let sunriseDate = new Date(sunrise * 1000),
@@ -103,8 +94,12 @@ let DayDetails = ({ element }) => {
     sunsetHour = sunsetDate.getHours(),
     sunsetMinutes = sunsetDate.getMinutes();
   return (
-    <div className="daily-card_details-item-contet">
-      <div className="panel left">
+    <div
+      className={`daily-card_details-item-contet ${
+        showDetails ? "show-details" : ""
+      }`}
+    >
+      <div className="panel left" ref={panelReference}>
         <p>
           Sunrise:{" "}
           <span>
