@@ -61,8 +61,8 @@ let DayItem = (props) => {
             className={`wu wu-${iconKey(description)} wu-64 wu-solid-white`}
           ></i>
           <div className="daily-card_temperatures">
-            <p>{Math.round(max)}</p>
-            <p>/ {Math.round(min)}</p>
+            <p>{Math.round(max)}°C</p>
+            <p>/ {Math.round(min)}°C</p>
           </div>
           <div className="description_wrapper">
             <p>
@@ -82,19 +82,20 @@ let DayItem = (props) => {
   );
 };
 let DayDetails = ({ element }) => {
-  <div className="daily-card_details-header-item-contet">
-    <div className="panel left">
-      <p>
-        heeey baby
-        <span>watch out</span>
-      </p>
-    </div>
-    <div className="panel">
-      <h1>I im watching tv</h1>
-    </div>
-  </div>;
+  // <div className="daily-card_details-header-item-contet">
+  //   <div className="panel left">
+  //     <p>
+  //       heeey baby
+  //       <span>watch out</span>
+  //     </p>
+  //   </div>
+  //   <div className="panel">
+  //     <h1>I im watching tv</h1>
+  //   </div>
+  // </div>;
   console.log("element", element);
   let { sunrise, sunset, temp, humidity, pressure, wind_speed } = element;
+  let { night, eve, morn } = temp;
   let sunriseDate = new Date(sunrise * 1000),
     sunriseHour = sunriseDate.getHours(),
     sunriseMinutes = sunriseDate.getMinutes();
@@ -102,7 +103,7 @@ let DayDetails = ({ element }) => {
     sunsetHour = sunsetDate.getHours(),
     sunsetMinutes = sunsetDate.getMinutes();
   return (
-    <div className="daily-card_details-header-item-contet">
+    <div className="daily-card_details-item-contet">
       <div className="panel left">
         <p>
           Sunrise:{" "}
@@ -118,9 +119,26 @@ let DayDetails = ({ element }) => {
             {sunsetMinutes < 10 ? "0" + sunsetMinutes : sunsetMinutes} am
           </span>
         </p>
+        <p>
+          Humidity <span>{humidity}%</span>
+        </p>
+        <p>
+          Wind speed <span>{wind_speed}</span>
+        </p>
       </div>
       <div className="panel">
-        <h1>I im watching tv</h1>
+        <p>
+          Morning: <span>{morn}°C</span>
+        </p>
+        <p>
+          Evening: <span>{eve}°C</span>
+        </p>
+        <p>
+          night: <span>{night}°C</span>
+        </p>
+        <p>
+          Presure: <span>pressure</span>
+        </p>
       </div>
     </div>
   );

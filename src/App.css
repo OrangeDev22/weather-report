@@ -217,12 +217,22 @@ p {
   max-width: var(--max-width);
   margin: 10px;
 }
-.daily-card_details-header-item-contet {
+.daily-card_details-item-contet {
   display: flex;
   justify-content: space-evenly;
 }
 .panel {
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+.panel p {
+  float: left;
+}
+
+.panel span {
+  float: right;
 }
 /*
   code below will be used in the future
