@@ -3,19 +3,11 @@ import { useFetch } from "./useFetch";
 import { iconKey } from "./WeatherCard";
 import { BiChevronsUp } from "react-icons/bi";
 import "./css/Daily.css";
+import "leaflet/dist/leaflet.css";
 const Daily = ({ details }) => {
-  console.log("details in daily", details);
-  const [show, setShow] = useState(true);
-  const [position, setPosition] = useState(0);
-  // const base = "https://api.openweathermap.org/data/2.5/onecall";
-  // const key = "05e47cb6f8fc8afa437fc32af1218b36";
-  // const query = `?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${key}&units=metric`;
-  // const { loading, details } = useFetch(base + query);
   let { daily } = details;
-  // console.log(base + query);
   let DailyList = () => {
     return daily.map((element, index) => {
-      //{ dt, description, day, dayNumber, month, max, min }
       return <DayItem element={element} key={index} />;
     });
   };
@@ -26,7 +18,6 @@ const Daily = ({ details }) => {
         <div className={`daily-card_header`}>
           <h1>Daily report 7 days</h1>
         </div>
-        {/* {show ? <DailyList /> : <DayDetails daily={daily} index={position} />} */}
         {DailyList()}
       </div>
     </>
@@ -74,9 +65,6 @@ let DayItem = (props) => {
           </h3>
         </div>
         <DayDetails element={props.element} showDetails={showDetails} />
-        {/* {showDetails && (
-          <DayDetails element={props.element} showDetails={showDetails} />
-        )} */}
       </section>
     </>
   );
@@ -132,12 +120,10 @@ let DayDetails = ({ element, showDetails }) => {
           night: <span>{night}°C</span>
         </p>
         <p>
-          Presure: <span>pressure</span>
+          Presure: <span>{pressure} hPa</span>
         </p>
       </div>
     </div>
   );
-
-  //description daynumber, month, max, min
 };
 export default Daily;
