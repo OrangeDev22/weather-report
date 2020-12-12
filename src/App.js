@@ -3,6 +3,7 @@ import WeatherCard from "./WeatherCard";
 import Daily from "./Daily";
 import Hourly from "./Hourly";
 import { TileLayer, MapContainer, Marker, Popup } from "react-leaflet";
+
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
@@ -18,11 +19,11 @@ const App = () => {
   const [details, setDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedTab, setSelectedTab] = useState(0);
+  const [locationDetails, setLocationDetails] = useState([]);
   const url =
     "http://api.ipstack.com/check?access_key=d4d7e15716eb60585620301f3408eaa5&format=1";
   //const { loading, details } = useFetch(url);
 
-  const [locationDetails, setLocationDetails] = useState([]);
   const unit = "celcius";
   const getClientDetails = async () => {
     const response = await fetch(url);
@@ -34,7 +35,7 @@ const App = () => {
     let { city, latitude, longitude } = details;
     const base = "https://api.openweathermap.org/data/2.5/onecall";
     const key = "05e47cb6f8fc8afa437fc32af1218b36";
-    const query = `?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${key}&units=metric`;
+    const query = `?lat=${latitude}&lon=${longitude}&exclude=current,minutely,alerts&appid=${key}&units=metric`;
     const response = await fetch(base + query);
     const data = await response.json();
     console.log(base + query);
@@ -85,8 +86,8 @@ const App = () => {
           </button>
         </div>
         <div className="main-container">
-          {selectedTab === 0 && <Daily details={locationDetails}></Daily>}
-          {selectedTab === 1 && <Hourly />}
+          {selectedTab === 0 && <Daily details={locationDetails} />}
+          {selectedTab === 1 && <Hourly details={locationDetails.hourly} />}
           {selectedTab === 2 && <h4>Place Holder</h4>}
           <Map latitude={details.latitude} longitude={details.longitude} />
         </div>
@@ -117,4 +118,5 @@ const Map = ({ latitude, longitude }) => {
     </MapContainer>
   );
 };
+
 export default App;

@@ -148,6 +148,13 @@ p {
   color: rgb(255, 153, 85);
   box-shadow: 0 2px rgb(255, 153, 85);
 }
+.chart-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: black;
+  margin: 10px;
+}
 
 /*
   code below will be used in the future
