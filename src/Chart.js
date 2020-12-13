@@ -44,7 +44,7 @@ const Chart = ({ data }) => {
             fill="rgb(255, 153, 85,0.431)"
           >
             <LabelList
-              dataKey="temp"
+              dataKey="label"
               position="top"
               style={{ fill: "#fff" }}
             ></LabelList>
