@@ -17,6 +17,7 @@
   justify-content: space-around;
   flex-direction: row;
   cursor: pointer;
+  font-weight: bold;
 }
 .hourly-card-header:hover {
   background-color: rgb(255, 153, 85);

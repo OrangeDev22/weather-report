@@ -16,7 +16,7 @@ const Daily = ({ details }) => {
     <>
       <div className="daily-card">
         <div className={`daily-card_header`}>
-          <h1>Daily report 7 days</h1>
+          <h1>7 days forecast</h1>
         </div>
         {DailyList()}
       </div>

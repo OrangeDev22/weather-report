@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 import { useFetch } from "./useFetch";
 
-const WeatherCard = ({ city, unit }) => {
+const WeatherCard = ({ city, unit, dt }) => {
   const key = "05e47cb6f8fc8afa437fc32af1218b36";
   const base = "http://api.openweathermap.org/data/2.5/weather";
   const query = `?q=${city}&units=metric&appid=${key}`;
@@ -14,7 +14,7 @@ const WeatherCard = ({ city, unit }) => {
 
   if (loading) return <h1>Loading...</h1>;
 
-  const { main, weather, visibility, dt } = details;
+  const { main, weather, visibility } = details;
 
   let { description } = weather[0];
 

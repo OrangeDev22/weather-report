@@ -35,7 +35,7 @@ const App = () => {
     let { city, latitude, longitude } = details;
     const base = "https://api.openweathermap.org/data/2.5/onecall";
     const key = "05e47cb6f8fc8afa437fc32af1218b36";
-    const query = `?lat=${latitude}&lon=${longitude}&exclude=current,minutely,alerts&appid=${key}&units=metric`;
+    const query = `?lat=${latitude}&lon=${longitude}&exclude=minutely,alerts&appid=${key}&units=metric`;
     const response = await fetch(base + query);
     const data = await response.json();
     console.log(base + query);
@@ -64,6 +64,7 @@ const App = () => {
         <WeatherCard
           city={details.city.toLowerCase()}
           unit={unit}
+          dt={locationDetails.current.dt}
         ></WeatherCard>
         <div className="btn-container">
           <button
