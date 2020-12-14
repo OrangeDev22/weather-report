@@ -1,0 +1,28 @@
+nav {
+  background: rgb(103, 175, 221);
+  width: 100%;
+}
+.nav-bar {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+.input-wrapper {
+  margin-left: auto;
+  margin-right: 2em;
+}
+.title-wrapper {
+  display: flex;
+  width: 25em;
+  justify-content: space-evenly;
+}
+input {
+  background-color: rgb(61, 61, 61);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import NavBar from "./Navbar";
 import WeatherCard from "./WeatherCard";
 import Daily from "./Daily";
 import Hourly from "./Hourly";
@@ -8,6 +9,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+
 let DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
@@ -31,6 +33,7 @@ const App = () => {
     setDetails(data);
     return data;
   };
+
   const getAllInOneCall = async (details) => {
     let { city, latitude, longitude } = details;
     const base = "https://api.openweathermap.org/data/2.5/onecall";
@@ -53,13 +56,19 @@ const App = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log("before if", loading);
   if (loading) return <div>Loading...</div>;
+
+  console.log("before if", details);
   const handleChange = (newValue) => {
     setSelectedTab(newValue);
   };
   return (
     <>
+      <NavBar
+        city={details.city}
+        region_name={details.region_name}
+        temp={locationDetails.current.temp}
+      />
       <main>
         <WeatherCard
           city={details.city.toLowerCase()}
