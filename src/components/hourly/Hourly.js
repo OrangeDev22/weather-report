@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Chart from "./Chart";
-import { iconKey } from "./WeatherCard";
+import Chart from "../chart";
+import { iconKey } from "../weathercard";
 import { BiChevronsUp } from "react-icons/bi";
-import "./css/Hour.css";
+import "../../css/Hour.css";
 const Hourly = ({ details }) => {
   const [hours, setHours] = useState([]);
   console.log(details);

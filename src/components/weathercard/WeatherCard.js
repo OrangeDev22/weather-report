@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { useFetch } from "./useFetch";
+import { useFetch } from "../../useFetch";
 
 const WeatherCard = ({ city, unit, dt }) => {
   const key = "05e47cb6f8fc8afa437fc32af1218b36";

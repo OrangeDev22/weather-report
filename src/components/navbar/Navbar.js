@@ -1,5 +1,5 @@
 import React from "react";
-import "./css/NavBar.css";
+import "../../css/NavBar.css";
 const NavBar = ({ city, region_name, temp }) => {
   const searchCity = (e) => {
     if (e.key === "Enter") {

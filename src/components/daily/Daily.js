@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useFetch } from "./useFetch";
-import { iconKey } from "./WeatherCard";
+import { iconKey } from "../weathercard";
 import { BiChevronsUp } from "react-icons/bi";
-import "./css/Daily.css";
+import "../../css/Daily.css";
 import "leaflet/dist/leaflet.css";
 const Daily = ({ details }) => {
   let { daily } = details;

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import NavBar from "./Navbar";
-import WeatherCard from "./WeatherCard";
-import Daily from "./Daily";
-import Hourly from "./Hourly";
+import NavBar from "./components/navbar";
+import WeatherCard from "./components/weathercard";
+import Daily from "./components/daily/Daily";
+import Hourly from "./components/hourly/Hourly";
 import { TileLayer, MapContainer, Marker, Popup } from "react-leaflet";
-
+import { BrowserRouter as Rotuer, Route, Switch } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
