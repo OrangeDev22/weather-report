@@ -3,9 +3,8 @@ import Chart from "../chart";
 import { iconKey } from "../weathercard";
 import { BiChevronsUp } from "react-icons/bi";
 import "../../css/Hour.css";
-const Hourly = ({ details }) => {
+const Hourly = ({ details, timezone_offset }) => {
   const [hours, setHours] = useState([]);
-  console.log(details);
 
   let createHourlyItems = () => {
     return details.slice(0, 24).map((element) => {
@@ -20,10 +19,10 @@ const Hourly = ({ details }) => {
         dew_point,
         weather,
       } = element;
-
+      let time = dt + timezone_offset;
       return (
         <HourlyItem
-          dt={dt}
+          dt={time}
           temp={temp}
           feels_like={feels_like}
           pressure={pressure}
@@ -40,8 +39,9 @@ const Hourly = ({ details }) => {
   useEffect(() => {
     setHours(
       details.slice(0, 24).map((element, index) => {
-        let date = new Date(element.dt * 1000);
-        let hour = date.getHours();
+        let time = element.dt + timezone_offset;
+        let date = new Date(time * 1000);
+        let hour = date.getUTCHours();
 
         return {
           name: `${
@@ -58,7 +58,7 @@ const Hourly = ({ details }) => {
   return (
     <>
       <h1>Hourly forecast</h1>
-      <Chart data={hours} />
+      <Chart data={hours} timezone_offset={timezone_offset} />
       {createHourlyItems()}
     </>
   );
@@ -80,7 +80,7 @@ let HourlyItem = ({
   let day = strDate[0];
   let dayNumber = date.getUTCDate();
   let { description } = weather[0];
-  let hour = date.getHours();
+  let hour = date.getUTCHours();
   return (
     <>
       <div

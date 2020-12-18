@@ -1,69 +1,93 @@
-import React, { Component, useState } from "react";
-import { useFetch } from "../../useFetch";
+import React, { useReducer, useState, useEffect } from "react";
 
-const WeatherCard = ({ city, unit, dt }) => {
-  const key = "05e47cb6f8fc8afa437fc32af1218b36";
-  const base = "http://api.openweathermap.org/data/2.5/weather";
-  const query = `?q=${city}&units=metric&appid=${key}`;
-
-  const { loading, details } = useFetch(base + query);
-
+const WeatherCard = ({ city, unit, dt, timezone_offset, details, country }) => {
   const convertTemperature = (temperature) => {
     return unit === "celcius" ? temperature : (temperature * 9) / 5 - 459.67;
   };
+  const defaultState = {
+    cityName: "",
+    date: "",
+    hours: "",
+    minutes: "",
+    temp: 0,
+    pressure: 0,
+    humidity: 0,
+    visibility: 0,
+    description: "",
+    mainDescription: "",
+    country: "",
+  };
+  const { main, weather } = details;
 
-  if (loading) return <h1>Loading...</h1>;
+  const reducer = (state, action) => {
+    let unix_timestamp = dt + timezone_offset;
+    let time = new Date(unix_timestamp * 1000);
+    if (action.type === "SET_WEATHER_CARD") {
+      return {
+        cityName: city,
+        date: time,
+        hour: time.getUTCHours(),
+        minutes: time.getUTCMinutes(),
+        temp: main.temp,
+        pressure: main.pressure,
+        humidity: main.humidity,
+        visibility: details.visibility,
+        description: weather[0].description,
+        mainDescription: weather[0].main,
+        country: country,
+      };
+    }
 
-  const { main, weather, visibility } = details;
-
-  let { description } = weather[0];
-
-  let weatherMainDescription = weather[0].main;
-
-  const { temp, pressure, humidity } = main;
-
-  let unix_timestamp = dt;
-  let date = new Date(unix_timestamp * 1000);
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
-
-  let dayTime = () => {
-    return hours < 17 ? "day" : "night";
+    return state;
   };
 
-  //uncomment next line only for testing
-  //description = "mist";
+  const [state, dispatch] = useReducer(reducer, defaultState);
+
+  useEffect(() => {
+    dispatch({ type: "SET_WEATHER_CARD" });
+  }, []);
+
+  let dayTime = () => {
+    return state.hours < 17 ? "day" : "night";
+  };
+
   return (
     <>
       <div className="weather-card">
         <div
-          className={`weather-card_container ${description.replace(" ", "_")}`}
+          className={`weather-card_container ${state.description.replace(
+            " ",
+            "_"
+          )}`}
         >
           <div className="weather-card_panel">
-            <h2>The weather now at {city}</h2>
+            <h2>
+              Weather at {state.cityName} - {state.country}
+            </h2>
             <p>
-              {hours}:{minutes < 10 ? "0" + minutes : minutes}
+              {state.hour}:
+              {state.minutes < 10 ? "0" + state.minutes : state.minutes}
             </p>
             <div className="weather-card_panel main">
               <i
                 className={`wu wu-${iconKey(
-                  description
+                  state.description
                 )} wu-128 wu-solid-white wu-${dayTime()}`}
               ></i>
               <p className="temperature">
-                {Math.round(convertTemperature(temp))}°{""}
+                {Math.round(convertTemperature(state.temp))}°{""}
                 {unit === "celcius" ? "c" : "f"}
               </p>
             </div>
             <div className="description_container">
-              <h4 className="weather_description">{weatherMainDescription}</h4>
-              <p className="weather_description">{description}</p>
+              <h4 className="weather_description">{state.mainDescription}</h4>
+              <p className="weather_description">{state.description}</p>
             </div>
           </div>
           <section className="weather-card_pard_panel details">
-            <p className="details">Pressure: {pressure} hPa</p>
-            <p className="details">Humidity: {humidity}%</p>
-            <p className="details">visibility: {visibility / 1000} km</p>
+            <p className="details">Pressure: {state.pressure} hPa</p>
+            <p className="details">Humidity: {state.humidity}%</p>
+            <p className="details">visibility: {state.visibility / 1000} km</p>
             <button className="btn">Show more</button>
           </section>
         </div>
@@ -72,9 +96,6 @@ const WeatherCard = ({ city, unit, dt }) => {
   );
 };
 export let iconKey = (element) => {
-  // description = "clear sky";
-  // console.log(description);
-
   switch (element) {
     case "clear sky":
       return "clear";

@@ -1,13 +1,33 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import { iconKey } from "../weathercard";
 import { BiChevronsUp } from "react-icons/bi";
 import "../../css/Daily.css";
 import "leaflet/dist/leaflet.css";
-const Daily = ({ details }) => {
-  let { daily } = details;
+const Daily = ({ details, location }) => {
+  const defaultState = {
+    daily: [],
+  };
+  const reducer = (state, action) => {
+    if (action.type === "SETSTATE") {
+      return { daily: details.daily };
+    }
+    return state;
+  };
+
+  const [state, dispatch] = useReducer(reducer, defaultState);
+
+  useEffect(() => {
+    dispatch({ type: "SETSTATE" });
+  }, []);
+
   let DailyList = () => {
-    return daily.map((element, index) => {
-      return <DayItem element={element} key={index} />;
+    return state.daily.map((element, index) => {
+      return (
+        <DayItem
+          element={element}
+          key={location + "" + index + new Date().getTime().toString()}
+        />
+      );
     });
   };
 
@@ -69,9 +89,6 @@ let DayItem = (props) => {
   );
 };
 let DayDetails = ({ element, showDetails }) => {
-  const panelReference = useRef(null);
-  const itemContentReference = useRef(null);
-
   let { sunrise, sunset, temp, humidity, pressure, wind_speed } = element;
   let { night, eve, morn } = temp;
   let sunriseDate = new Date(sunrise * 1000),
@@ -86,7 +103,7 @@ let DayDetails = ({ element, showDetails }) => {
         showDetails ? "show-details" : ""
       }`}
     >
-      <div className="panel left" ref={panelReference}>
+      <div className="panel left">
         <p>
           Sunrise:{" "}
           <span>
