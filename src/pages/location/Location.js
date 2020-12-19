@@ -17,7 +17,7 @@ let DefaultIcon = L.icon({
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
-const Location = () => {
+const Location = ({ screenWidth }) => {
   const { location, latitude, longitude, countryCode } = useParams();
   const [currentDetails, setCurrent] = useState([]);
   const [locationDetails, setLocationDetails] = useState([]);
@@ -87,18 +87,23 @@ const Location = () => {
         </div>
         <div className="main-container">
           {selectedTab === 0 && (
-            <Daily details={locationDetails} location={location} />
+            <Daily
+              details={locationDetails}
+              location={location}
+              screenWidth={screenWidth}
+            />
           )}
           {selectedTab === 1 && (
             <Hourly
               details={locationDetails.hourly}
               timezone_offset={locationDetails.timezone_offset}
+              screenWidth={screenWidth}
             />
           )}
-          <Map
+          {/* <Map
             latitude={currentDetails.coord.lat}
             longitude={currentDetails.coord.lon}
-          />
+          /> */}
         </div>
       </main>
     </>

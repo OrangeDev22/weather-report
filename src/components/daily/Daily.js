@@ -3,7 +3,7 @@ import { iconKey } from "../weathercard";
 import { BiChevronsUp } from "react-icons/bi";
 import "../../css/Daily.css";
 import "leaflet/dist/leaflet.css";
-const Daily = ({ details, location }) => {
+const Daily = ({ details, location, screenWidth }) => {
   const defaultState = {
     daily: [],
   };
@@ -26,6 +26,7 @@ const Daily = ({ details, location }) => {
         <DayItem
           element={element}
           key={location + "" + index + new Date().getTime().toString()}
+          screenWidth={screenWidth}
         />
       );
     });
@@ -51,7 +52,7 @@ let DayItem = (props) => {
   let strDate = date.toString().slice(0, 7).split(" ");
   let day = strDate[0];
   let dayNumber = date.getUTCDate();
-  let month = strDate[1];
+  let month = date.getUTCMonth();
   return (
     <>
       <section
@@ -60,16 +61,19 @@ let DayItem = (props) => {
       >
         <div className="daily-card_details-header">
           <div className="daily-card_date_wrapper">
+            <span>{day}.</span>
             <span>
-              {day} {dayNumber < 10 ? "0" + dayNumber : dayNumber} , {month}
+              {dayNumber < 10 ? "0" + dayNumber : dayNumber}/{month}
             </span>
           </div>
           <i
-            className={`wu wu-${iconKey(description)} wu-64 wu-solid-white`}
+            className={`wu wu-${iconKey(description)} wu-${
+              props.screenWidth < 600 ? 32 : 64
+            } wu-solid-white`}
           ></i>
           <div className="daily-card_temperatures">
             <p>{Math.round(max)}°C</p>
-            <p>/ {Math.round(min)}°C</p>
+            <p>/{Math.round(min)}°C</p>
           </div>
           <div className="description_wrapper">
             <p>
@@ -80,7 +84,7 @@ let DayItem = (props) => {
             </p>
           </div>
           <h3 className={`arrow-icon ${showDetails ? "rotate-180" : ""}`}>
-            <BiChevronsUp size={32} />
+            <BiChevronsUp size={props.screenWidth < 600 ? 16 : 32} />
           </h3>
         </div>
         <DayDetails element={props.element} showDetails={showDetails} />
@@ -99,7 +103,7 @@ let DayDetails = ({ element, showDetails }) => {
     sunsetMinutes = sunsetDate.getMinutes();
   return (
     <div
-      className={`daily-card_details-item-contet ${
+      className={`daily-card_details-item-content ${
         showDetails ? "show-details" : ""
       }`}
     >

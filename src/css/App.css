@@ -3,10 +3,6 @@
   --clr-primary-1: hsl(225, 8%, 40%);
   --max-width: 570px;
 }
-br {
-  border: 2px;
-  border-color: black;
-}
 
 body {
   margin: 0;
@@ -118,11 +114,11 @@ p {
 .btn-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   margin: 0 auto;
   margin-top: 10px;
   padding: 10px;
-  justify-content: space-around;
-  flex-wrap: wrap;
+
   box-shadow: 0 2px white;
 }
 .tab-btn {
@@ -156,6 +152,12 @@ p {
   margin: 10px;
 }
 
+@media only screen and (max-width: 600px) {
+  .weather-card {
+    overflow: hidden;
+    width: 0;
+  }
+}
 /*
   code below will be used in the future
 */

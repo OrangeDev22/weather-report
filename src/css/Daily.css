@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 90vw;
   max-width: 1080px;
-  margin: 10px;
+  margin: 0.5em;
   align-items: center;
 }
 .daily-card_details {
@@ -30,14 +30,18 @@
 }
 
 .daily-card_temperatures {
+  width: 6em;
+  min-width: 81px;
   display: flex;
-  margin: 5px;
 }
 .daily-card_date {
   margin: 5px;
 }
 .daily-card_date_wrapper {
-  width: 12vh;
+  width: 4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .daily-card_date_wrapper span {
   white-space: nowrap;
@@ -45,7 +49,7 @@
   text-overflow: ellipsis;
 }
 .description_wrapper {
-  width: 10vh;
+  width: 4em;
 }
 .daily-card_header {
   display: flex;
@@ -53,7 +57,7 @@
   justify-content: center;
   margin: 10px;
 }
-.daily-card_details-item-contet {
+.daily-card_details-item-content {
   display: flex;
   justify-content: space-evenly;
   transition: all 0.1s linear;
@@ -85,4 +89,22 @@
 .panel span {
   float: right;
   transition: all 1s linear;
+}
+
+@media only screen and (max-width: 600px) {
+  .daily-card_details {
+    margin: 5px;
+  }
+  .daily-card_header {
+    margin: 2px;
+  }
+  .daily-card_details-header {
+    font-size: 0.7em;
+  }
+  .description_wrapper {
+    font-size: 0.7em;
+  }
+  .daily-card_details-item-content {
+    font-size: 0.8em;
+  }
 }

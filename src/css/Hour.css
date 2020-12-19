@@ -14,7 +14,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-direction: row;
   cursor: pointer;
   font-weight: bold;
@@ -23,18 +23,15 @@
   background-color: rgb(255, 153, 85);
 }
 .hourly-card-description-wrapper {
-  width: 12vh;
+  width: 3rem;
 }
-.hourly-card-details-item-content {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-}
+
 .panel {
   display: flex;
   width: 50%;
 }
 .hourly-card-details-item-content {
+  width: 100%;
   display: flex;
   justify-content: space-evenly;
   transition: all 0.1s linear;
@@ -43,4 +40,20 @@
 }
 .hourly-show-details {
   height: 7rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .hourly-card-header {
+    font-size: 0.7em;
+  }
+  .hourly-card-details-item-content {
+    font-size: 0.8em;
+  }
+
+  .hourly-show-details {
+    height: 5rem;
+  }
+  .panel {
+    margin: 2px;
+  }
 }

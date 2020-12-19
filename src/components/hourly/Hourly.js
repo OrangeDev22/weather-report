@@ -3,10 +3,11 @@ import Chart from "../chart";
 import { iconKey } from "../weathercard";
 import { BiChevronsUp } from "react-icons/bi";
 import "../../css/Hour.css";
-const Hourly = ({ details, timezone_offset }) => {
+const Hourly = ({ details, timezone_offset, screenWidth }) => {
   const [hours, setHours] = useState([]);
-
+  const [displayChart, setDisplayChart] = useState(true);
   let createHourlyItems = () => {
+    console.log("Screen width", screenWidth);
     return details.slice(0, 24).map((element) => {
       let {
         dt,
@@ -31,6 +32,7 @@ const Hourly = ({ details, timezone_offset }) => {
           wind_speed={wind_speed}
           dew_point={dew_point}
           weather={weather}
+          screenWidth={screenWidth}
         />
       );
     });
@@ -54,11 +56,19 @@ const Hourly = ({ details, timezone_offset }) => {
       })
     );
   }, []);
-
+  useEffect(() => {
+    screenWidth < 600 ? setDisplayChart(false) : setDisplayChart(true);
+  });
   return (
     <>
       <h1>Hourly forecast</h1>
-      <Chart data={hours} timezone_offset={timezone_offset} />
+      {displayChart && (
+        <Chart
+          data={hours}
+          timezone_offset={timezone_offset}
+          screenWidth={screenWidth}
+        />
+      )}
       {createHourlyItems()}
     </>
   );
@@ -73,6 +83,7 @@ let HourlyItem = ({
   wind_speed,
   dew_point,
   weather,
+  screenWidth,
 }) => {
   let [showDetails, setShowDetails] = useState(false);
   let date = new Date(dt * 1000);
@@ -101,7 +112,9 @@ let HourlyItem = ({
             °C
           </span>
           <i
-            className={`wu wu-${iconKey(description)} wu-64 wu-solid-white`}
+            className={`wu wu-${iconKey(description)} wu-${
+              screenWidth < 600 ? "32" : "64"
+            } wu-solid-white`}
           ></i>
           <div className="hourly-card-description-wrapper">
             <span>
@@ -111,7 +124,7 @@ let HourlyItem = ({
             </span>
           </div>
           <h3 className={`arrow-icon ${showDetails ? "rotate-180" : ""}`}>
-            <BiChevronsUp size={32} />
+            <BiChevronsUp size={screenWidth < 600 ? 16 : 32} />
           </h3>
         </div>
 

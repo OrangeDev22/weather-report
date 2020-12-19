@@ -9,16 +9,17 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
-const Chart = ({ data }) => {
+const Chart = ({ data, screenWidth }) => {
   const maxTemp = Math.max.apply(
     Math,
     data.map(function (element) {
       return element.temp;
     })
   );
+  console.log(screenWidth);
   return (
     <div className="chart-container">
-      <ResponsiveContainer width="80%" height={400}>
+      <ResponsiveContainer width={"95%"} height={screenWidth < 600 ? 200 : 400}>
         <AreaChart
           data={data}
           margin={{
@@ -27,6 +28,7 @@ const Chart = ({ data }) => {
             left: 0,
             bottom: 0,
           }}
+          isAnimationActive={false}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" style={{ fill: "#fff" }} />
@@ -42,6 +44,7 @@ const Chart = ({ data }) => {
             strokeWidth="4"
             stroke="rgb(255, 153, 85)"
             fill="rgb(255, 153, 85,0.431)"
+            isAnimationActive={false}
           >
             <LabelList
               dataKey="label"

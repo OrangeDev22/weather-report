@@ -5,8 +5,6 @@ nav {
 .nav-bar {
   display: flex;
   align-items: center;
-  margin: 0;
-  padding: 0;
 }
 .input-wrapper {
   margin-left: auto;
@@ -14,7 +12,7 @@ nav {
 }
 .title-wrapper {
   display: flex;
-  width: 25em;
+  width: 10rem;
   justify-content: space-evenly;
 }
 input {
@@ -26,7 +24,7 @@ input {
   outline: none;
 }
 .autoContainer {
-  width: 100%;
+  width: 12rem;
   position: absolute;
   background-color: rgb(36, 36, 36);
 }
@@ -41,4 +39,18 @@ input {
 }
 .selected {
   background-color: blueviolet;
+}
+
+@media only screen and (max-width: 600px) {
+  .nav-bar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .input-wrapper {
+    margin: 5px;
+  }
+  input {
+    padding: auto;
+  }
 }

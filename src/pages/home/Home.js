@@ -15,7 +15,7 @@ let DefaultIcon = L.icon({
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
-const Home = () => {
+const Home = ({ screenWidth }) => {
   const [details, setDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedTab, setSelectedTab] = useState(0);
@@ -92,12 +92,17 @@ const Home = () => {
         </div>
         <div className="main-container">
           {selectedTab === 0 && (
-            <Daily details={locationDetails} location={details.city} />
+            <Daily
+              details={locationDetails}
+              location={details.city}
+              screenWidth={screenWidth}
+            />
           )}
           {selectedTab === 1 && (
             <Hourly
               details={locationDetails.hourly}
               timezone_offset={locationDetails.timezone_offset}
+              screenWidth={screenWidth}
             />
           )}
           {selectedTab === 2 && <h4>Place Holder</h4>}
