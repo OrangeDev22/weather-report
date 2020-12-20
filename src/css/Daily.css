@@ -96,7 +96,9 @@
     margin: 5px;
   }
   .daily-card_header {
-    margin: 2px;
+    visibility: hidden;
+    height: 0px;
+    margin: 0px;
   }
   .daily-card_details-header {
     font-size: 0.7em;

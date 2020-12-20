@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "../../css/NavBar.css";
 import cityList from "./city_list.json";
 import { useHistory } from "react-router-dom";
-const NavBar = ({ city, temp }) => {
+const NavBar = ({ city, temp, screenWidth }) => {
   let history = useHistory();
   const [display, setDisplay] = useState(false);
   const [options, setOptions] = useState([]);
@@ -89,10 +89,12 @@ const NavBar = ({ city, temp }) => {
 
   return (
     <nav className="nav-bar">
-      <div className="title-wrapper">
-        <h4>{city}</h4>
-        <h4>{Math.round(temp)}°C</h4>
-      </div>
+      {screenWidth < 600 || (
+        <div className="title-wrapper">
+          <h4>{city}</h4>
+          <h4>{Math.round(temp)}°C</h4>
+        </div>
+      )}
       <div className="input-wrapper" ref={wrapperRef}>
         <input
           ref={inputRef}

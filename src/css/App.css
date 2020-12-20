@@ -13,6 +13,9 @@ body {
 }
 
 .weather-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 10px;
 }
 
@@ -29,19 +32,29 @@ body {
   height: 500px;
   margin-top: 20px;
 }
-.weather-card_container {
-  width: 90vw;
-  max-width: var(--max-width);
-  margin: 0 auto;
+
+.weather-card-wrapper {
+  width: 30rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.weather-card-panel-wrapper {
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 5px;
-
-  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
-    0 22.3px 17.9px rgba(0, 0, 0, 0.072);
 }
+
+.weather-card-title {
+  margin: 5px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+.details-container {
+  height: 0;
+  overflow: hidden;
+}
+
 .clear_sky {
   background: rgb(103, 175, 221);
 }
@@ -111,6 +124,9 @@ p {
   margin: 2px;
   padding: 2px;
 }
+.time-wrapper {
+  font-weight: initial;
+}
 .btn-container {
   display: flex;
   flex-direction: row;
@@ -153,9 +169,83 @@ p {
 }
 
 @media only screen and (max-width: 600px) {
-  .weather-card {
+  .leaflet-container {
+    height: 250px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .weather-card-title {
+    text-align: center;
+    margin: 2px;
+    font-size: 1.5em;
+  }
+  .weather-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    max-width: 1080px;
+    border-radius: 20px;
+  }
+
+  .weather-card-panel-wrapper {
+    display: flex;
+    padding: 2px;
+  }
+
+  /* .weather-card-panel-wrapper :nth-child(1) {
+    order: 1;
+  } */
+
+  .weather-card_panel {
+    flex-grow: 2;
+    font-size: 1.4em;
+    justify-content: center;
+  }
+  .weather-card_panel_details {
+    display: flex;
+    flex-direction: column;
+  }
+  .weather-card_panel .main {
+    flex-direction: row;
+    font-size: 1.2em;
+    justify-content: space-evenly;
+  }
+  .weather-card_panel .main,
+  p {
+    margin: 2px;
+  }
+
+  .details-container {
+    width: 100%;
+    display: flex;
+    font-size: 0.5em;
+    justify-content: space-evenly;
+    align-items: center;
+    height: auto;
+  }
+  .detail-wrapper {
+    display: flex;
+  }
+  .description_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .weather-card_panel-right {
     overflow: hidden;
     width: 0;
+    height: 0px;
+  }
+  .time-wrapper {
+    font-size: 0.6em;
+    font-weight: initial;
+  }
+  .main .wu-solid-white {
+    order: 2;
+  }
+  .temperature {
+    order: 1;
   }
 }
 /*

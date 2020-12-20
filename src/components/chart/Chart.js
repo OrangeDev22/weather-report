@@ -24,7 +24,7 @@ const Chart = ({ data, screenWidth }) => {
           data={data}
           margin={{
             top: 10,
-            right: 30,
+            // right: 30,
             left: 0,
             bottom: 0,
           }}
@@ -32,11 +32,11 @@ const Chart = ({ data, screenWidth }) => {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" style={{ fill: "#fff" }} />
-          <YAxis
+          {/* <YAxis
             type="number"
             domain={["auto", maxTemp + 2]}
             style={{ fill: "#fff" }}
-          />
+          /> */}
           <Tooltip />
           <Area
             type="monotone"

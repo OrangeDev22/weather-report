@@ -46,9 +46,7 @@ const Hourly = ({ details, timezone_offset, screenWidth }) => {
         let hour = date.getUTCHours();
 
         return {
-          name: `${
-            index === 0 ? "" : `${hour < 11 ? `0${hour} am` : `${hour} pm`}`
-          }`,
+          name: `${index === 0 ? "" : `${hour}`}`,
           hour: hour,
           temp: element.temp,
           label: `${Math.round(element.temp)}`,
@@ -61,7 +59,9 @@ const Hourly = ({ details, timezone_offset, screenWidth }) => {
   });
   return (
     <>
-      <h1>Hourly forecast</h1>
+      <div className="hourly-header">
+        <h1>Hourly forecast</h1>
+      </div>
       {displayChart && (
         <Chart
           data={hours}

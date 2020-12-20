@@ -1,6 +1,15 @@
 import React, { useReducer, useState, useEffect } from "react";
-
-const WeatherCard = ({ city, unit, dt, timezone_offset, details, country }) => {
+import { WiHumidity, WiBarometer } from "react-icons/wi";
+import { MdVisibility } from "react-icons/md";
+const WeatherCard = ({
+  city,
+  unit,
+  dt,
+  timezone_offset,
+  details,
+  country,
+  screenWidth,
+}) => {
   const convertTemperature = (temperature) => {
     return unit === "celcius" ? temperature : (temperature * 9) / 5 - 459.67;
   };
@@ -18,14 +27,31 @@ const WeatherCard = ({ city, unit, dt, timezone_offset, details, country }) => {
     country: "",
   };
   const { main, weather } = details;
-
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const getMonth = (month) => {
+    return months[parseInt(month)];
+  };
   const reducer = (state, action) => {
     let unix_timestamp = dt + timezone_offset;
     let time = new Date(unix_timestamp * 1000);
     if (action.type === "SET_WEATHER_CARD") {
       return {
         cityName: city,
-        date: time,
+        day: time.getUTCDate(),
+        month: time.getUTCMonth(),
         hour: time.getUTCHours(),
         minutes: time.getUTCMinutes(),
         temp: main.temp,
@@ -48,48 +74,79 @@ const WeatherCard = ({ city, unit, dt, timezone_offset, details, country }) => {
   }, []);
 
   let dayTime = () => {
-    return state.hours < 17 ? "day" : "night";
+    return state.hour < 17 ? "day" : "night";
   };
 
   return (
     <>
       <div className="weather-card">
         <div
-          className={`weather-card_container ${state.description.replace(
+          className={`weather-card-wrapper ${state.description.replace(
             " ",
             "_"
           )}`}
         >
-          <div className="weather-card_panel">
-            <h2>
-              Weather at {state.cityName} - {state.country}
-            </h2>
+          <div className="weather-card-title">
             <p>
-              {state.hour}:
-              {state.minutes < 10 ? "0" + state.minutes : state.minutes}
+              {screenWidth < 600 ? "" : "Weather at"} {state.cityName}{" "}
+              {screenWidth < 600 ? "" : state.country}
             </p>
-            <div className="weather-card_panel main">
-              <i
-                className={`wu wu-${iconKey(
-                  state.description
-                )} wu-128 wu-solid-white wu-${dayTime()}`}
-              ></i>
-              <p className="temperature">
-                {Math.round(convertTemperature(state.temp))}°{""}
-                {unit === "celcius" ? "c" : "f"}
+            <div className="time-wrapper">
+              <p>
+                {`${getMonth(state.month)} `}
+                {`${state.day} `}
+                {state.hour}:
+                {state.minutes < 10 ? "0" + state.minutes : state.minutes}{" "}
               </p>
             </div>
-            <div className="description_container">
-              <h4 className="weather_description">{state.mainDescription}</h4>
-              <p className="weather_description">{state.description}</p>
-            </div>
           </div>
-          <section className="weather-card_pard_panel details">
-            <p className="details">Pressure: {state.pressure} hPa</p>
-            <p className="details">Humidity: {state.humidity}%</p>
-            <p className="details">visibility: {state.visibility / 1000} km</p>
-            <button className="btn">Show more</button>
-          </section>
+          <div className="weather-card-panel-wrapper">
+            <div className="weather-card_panel">
+              <div className="weather-card_panel main">
+                <div
+                  className={`wu wu-${iconKey(state.description)} wu-${
+                    screenWidth < 400 ? "64" : "128"
+                  } wu-solid-white wu-${dayTime()}`}
+                ></div>
+                <p className="temperature">
+                  {Math.round(convertTemperature(state.temp))}°{""}
+                  {unit === "celcius" ? "c" : "f"}
+                </p>
+              </div>
+              <div className="details-container">
+                <div className="detail-wrapper">
+                  <WiBarometer size={22} />
+                  <p>{state.pressure} hPa</p>
+                </div>
+                <div className="detail-wrapper">
+                  <WiHumidity size={22} />
+                  <p>{state.humidity}%</p>
+                </div>
+                <div className="detail-wrapper">
+                  <MdVisibility size={22} />
+                  <p>{state.visibility / 1000} km</p>
+                </div>
+              </div>
+              <div className="description_container">
+                {screenWidth < 600 || (
+                  <h4 className="weather_description">
+                    {state.mainDescription}
+                  </h4>
+                )}
+                <p className="weather_description">{state.description}</p>
+              </div>
+            </div>
+            {screenWidth < 600 || (
+              <section className="weather-card_panel-right details">
+                <p className="details">Pressure: {state.pressure} hPa</p>
+                <p className="details">Humidity: {state.humidity}%</p>
+                <p className="details">
+                  visibility: {state.visibility / 1000} km
+                </p>
+                <button className="btn">Show more</button>
+              </section>
+            )}
+          </div>
         </div>
       </div>
     </>

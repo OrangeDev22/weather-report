@@ -56,4 +56,9 @@
   .panel {
     margin: 2px;
   }
+  .hourly-header {
+    visibility: hidden;
+    height: 0px;
+    margin: 0px;
+  }
 }

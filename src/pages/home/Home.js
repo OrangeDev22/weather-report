@@ -60,7 +60,11 @@ const Home = ({ screenWidth }) => {
   };
   return (
     <>
-      <NavBar city={details.city} temp={locationDetails.current.temp} />
+      <NavBar
+        city={details.city}
+        temp={locationDetails.current.temp}
+        screenWidth={screenWidth}
+      />
       <main>
         <WeatherCard
           city={details.city}
@@ -69,6 +73,7 @@ const Home = ({ screenWidth }) => {
           timezone_offset={locationDetails.timezone_offset}
           details={currentDetails}
           country={details.country_name}
+          screenWidth={screenWidth}
         ></WeatherCard>
         <div className="btn-container">
           <button

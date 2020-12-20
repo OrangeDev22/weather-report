@@ -36,7 +36,7 @@ const Daily = ({ details, location, screenWidth }) => {
     <>
       <div className="daily-card">
         <div className={`daily-card_header`}>
-          <h1>7 days forecast</h1>
+          <h1>8 days forecast</h1>
         </div>
         {DailyList()}
       </div>
