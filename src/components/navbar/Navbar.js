@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import "../../css/NavBar.css";
 import cityList from "./city_list.json";
 import { useHistory } from "react-router-dom";
+import { BsSearch } from "react-icons/bs";
 const NavBar = ({ city, temp, screenWidth }) => {
   let history = useHistory();
   const [display, setDisplay] = useState(false);
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");
   const [citySearch, setCitySearch] = useState("");
+  const [showInput, setShowInput] = useState(false);
   const wrapperRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -90,22 +92,31 @@ const NavBar = ({ city, temp, screenWidth }) => {
   return (
     <nav className="nav-bar">
       {screenWidth < 600 || (
-        <div className="title-wrapper">
-          <h4>{city}</h4>
-          <h4>{Math.round(temp)}°C</h4>
+        <div className="nav-bar-main-container">
+          <div className="title-wrapper">
+            <h4>{city}</h4>
+            <h4>{Math.round(temp)}°C</h4>
+          </div>
         </div>
       )}
-      <div className="input-wrapper" ref={wrapperRef}>
-        <input
-          ref={inputRef}
-          className="input-search"
-          type="submmit"
-          placeholder="type a locaiton name"
-          onKeyPress={keyPressedHandler}
-          onChange={(e) => onChangeHandler(e.target.value)}
-          value={search}
-          autoComplete="off"
-        />
+      <div className="input-container" ref={wrapperRef}>
+        <div className="input-wrapper">
+          {screenWidth < 600 && (
+            <div className="icon-container">
+              <BsSearch />
+            </div>
+          )}
+          <input
+            ref={inputRef}
+            className="input-search"
+            type="submmit"
+            placeholder="type a locaiton name"
+            onKeyPress={keyPressedHandler}
+            onChange={(e) => onChangeHandler(e.target.value)}
+            value={search}
+            autoComplete="off"
+          />
+        </div>
 
         {display && (
           <div className="autoContainer">
