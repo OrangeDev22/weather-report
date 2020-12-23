@@ -53,6 +53,16 @@ let DayItem = (props) => {
   let day = strDate[0];
   let dayNumber = date.getUTCDate();
   let month = date.getUTCMonth();
+  const descriptionHandler = (description) => {
+    let str = "";
+    if (description[1] != null) {
+      str = description[1];
+      if (description[2] != null) {
+        str = str + " " + description[2];
+      }
+    }
+    return str;
+  };
   return (
     <>
       <section
@@ -63,7 +73,7 @@ let DayItem = (props) => {
           <div className="daily-card_date_wrapper">
             <span>{day}.</span>
             <span>
-              {dayNumber < 10 ? "0" + dayNumber : dayNumber}/{month}
+              {dayNumber < 10 ? "0" + dayNumber : dayNumber}/{month + 1}
             </span>
           </div>
           <i
@@ -74,15 +84,13 @@ let DayItem = (props) => {
             }  wu-${props.screenWidth < 600 ? 32 : 64} wu-solid-white`}
           ></i>
           <div className="daily-card_temperatures">
-            <p>{Math.round(max)}°C</p>
-            <p>/{Math.round(min)}°C</p>
+            <span>{Math.round(max)}°C</span>
+            <span>/{Math.round(min)}°C</span>
           </div>
           <div className="description_wrapper">
             <p>
               {description.split(" ")[0]} <br />{" "}
-              {description.split(" ")[1] !== null
-                ? description.split(" ")[1]
-                : ""}
+              {descriptionHandler(description.split(" "))}
             </p>
           </div>
           <h3 className={`arrow-icon ${showDetails ? "rotate-180" : ""}`}>

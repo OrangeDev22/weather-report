@@ -16,7 +16,6 @@ const Chart = ({ data, screenWidth }) => {
       return element.temp;
     })
   );
-  console.log(screenWidth);
   return (
     <div className="chart-container">
       <ResponsiveContainer

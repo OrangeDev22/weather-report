@@ -37,6 +37,7 @@
   width: 6em;
   min-width: 81px;
   display: flex;
+  justify-content: center;
 }
 .daily-card_date {
   margin: 5px;
@@ -53,7 +54,7 @@
   text-overflow: ellipsis;
 }
 .description_wrapper {
-  width: 4em;
+  width: 7em;
 }
 .daily-card_header {
   display: flex;
@@ -112,5 +113,8 @@
   }
   .daily-card_details-item-content {
     font-size: 0.8em;
+  }
+  .daily-card_details-header:hover {
+    background-color: rgba(255, 153, 85, 0);
   }
 }

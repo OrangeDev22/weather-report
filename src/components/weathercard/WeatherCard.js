@@ -93,7 +93,7 @@ const WeatherCard = ({
               <p>
                 {`${getMonth(state.month)} `}
                 {`${state.day} `}
-                {state.hour}:
+                {state.hour < 12 ? "0" + state.hour : state.hour}:
                 {state.minutes < 10 ? "0" + state.minutes : state.minutes}{" "}
               </p>
             </div>
@@ -173,15 +173,15 @@ export let iconKey = (element) => {
       return "tstorms";
     case "snow":
       return "snow";
-    case "mist" ||
-      "smoke" ||
-      "haze" ||
-      "dust" ||
-      "fog" ||
-      "sand" ||
-      "ash" ||
-      "squal" ||
-      "tornado":
+    case "mist":
+    case "smoke":
+    case "haze":
+    case "dust":
+    case "fog":
+    case "sand":
+    case "ash":
+    case "squal":
+    case "tornado":
       return "fog";
     default:
       return "unknown";

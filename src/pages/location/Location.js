@@ -41,7 +41,6 @@ const Location = ({ screenWidth }) => {
   };
   useEffect(() => {
     setLoading(true);
-    console.log(location, latitude, longitude, countryCode);
     if (
       location != null &&
       latitude != null &&
@@ -68,7 +67,7 @@ const Location = ({ screenWidth }) => {
     } else {
       history.push("/*");
     }
-  }, [location]);
+  }, [location, countryCode]);
   if (loading) return <h4>Loading...</h4>;
 
   return (

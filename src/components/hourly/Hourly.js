@@ -7,7 +7,6 @@ const Hourly = ({ details, timezone_offset, screenWidth }) => {
   const [hours, setHours] = useState([]);
   const [displayChart, setDisplayChart] = useState(true);
   let createHourlyItems = () => {
-    console.log("Screen width", screenWidth);
     return details.slice(0, 24).map((element) => {
       let {
         dt,
@@ -105,12 +104,14 @@ let HourlyItem = ({
         <div className="hourly-card-header">
           <div className="hourly-card-date-wrapper">
             <span>
-              {hour < 10 ? "0" + hour : hour} {hour < 12 ? "am" : "pm"} {day}{" "}
-              {dayNumber < 10 ? "0" + dayNumber : dayNumber}
+              {hour < 10 ? "0" + hour : hour} {hour < 12 ? "am" : "pm"}
+            </span>
+            <span>
+              {day} {dayNumber < 10 ? "0" + dayNumber : dayNumber}
             </span>
           </div>
           <span>
-            {Math.round(temp) < 10 ? "0" + Math.round(temp) : Math.round(temp)}
+            {Math.round(temp)}
             °C
           </span>
           <i
