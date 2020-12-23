@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Home from "./pages/home";
 import Location from "./pages/location";
+import Error from "./pages/error";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 
@@ -27,6 +28,9 @@ const App = () => {
             path="/location/:location/:countryCode?/:latitude?/:longitude?"
             children={<Location screenWidth={screenWidth} />}
           ></Route>
+          <Route path="*">
+            <Error />
+          </Route>
         </Switch>
       </Router>
     </>

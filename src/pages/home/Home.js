@@ -88,12 +88,6 @@ const Home = ({ screenWidth }) => {
           >
             Hourly
           </button>
-          <button
-            className={`tab-btn ${selectedTab === 2 && "active-btn"}`}
-            onClick={() => handleChange(2)}
-          >
-            Minutely
-          </button>
         </div>
         <div className="main-container">
           {selectedTab === 0 && (
@@ -110,7 +104,6 @@ const Home = ({ screenWidth }) => {
               screenWidth={screenWidth}
             />
           )}
-          {selectedTab === 2 && <h4>Place Holder</h4>}
           <Map latitude={details.latitude} longitude={details.longitude} />
         </div>
       </main>

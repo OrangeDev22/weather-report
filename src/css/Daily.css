@@ -6,6 +6,10 @@
   margin: 0.5em;
   align-items: center;
 }
+.chart-container {
+  width: 90vw;
+  max-width: 1080px;
+}
 .daily-card_details {
   width: 100%;
   margin: 10px;

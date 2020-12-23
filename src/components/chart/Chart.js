@@ -19,18 +19,21 @@ const Chart = ({ data, screenWidth }) => {
   console.log(screenWidth);
   return (
     <div className="chart-container">
-      <ResponsiveContainer width={"95%"} height={screenWidth < 600 ? 200 : 400}>
+      <ResponsiveContainer
+        width={"100%"}
+        height={screenWidth < 600 ? 125 : 200}
+      >
         <AreaChart
           data={data}
           margin={{
             top: 10,
-            // right: 30,
-            left: 0,
+            right: 20,
+            left: 20,
             bottom: 0,
           }}
           isAnimationActive={false}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          {/* <CartesianGrid strokeDasharray="3 3" /> */}
           <XAxis dataKey="name" style={{ fill: "#fff" }} />
           {/* <YAxis
             type="number"

@@ -51,7 +51,7 @@ const NavBar = ({ city, temp, screenWidth }) => {
       history.push(baseRoute + optionalRoute);
     } else {
       let result = cityList.find((city) => {
-        return city.name === formatCityName(search) ? city : null;
+        return city.name.toLowerCase() === search ? city : null;
       });
       if (result != null) {
         baseRoute = `/location/${result.name}`;
@@ -71,21 +71,10 @@ const NavBar = ({ city, temp, screenWidth }) => {
   const setCity = (value) => {
     searchCity(value.name, value.lat, value.lon, value.country);
   };
-  const formatCityName = (value) => {
-    return value
-      .split(" ")
-      .map((element) => {
-        return element.replace(
-          element.charAt(0),
-          element.charAt(0).toUpperCase()
-        );
-      })
-      .join(" ");
-  };
+
   const onChangeHandler = (value) => {
     setSearch(value);
-    let str = formatCityName(value);
-    setCitySearch((old) => (old = str));
+    setCitySearch(value.toLowerCase());
     value.length > 3 ? setDisplay(true) : setDisplay(false);
   };
 
@@ -121,7 +110,7 @@ const NavBar = ({ city, temp, screenWidth }) => {
         {display && (
           <div className="autoContainer">
             {options
-              .filter(({ name }) => name.indexOf(citySearch) > -1)
+              .filter(({ name }) => name.toLowerCase().indexOf(citySearch) > -1)
               .slice(0, 20)
               .map((value, index) => {
                 return (

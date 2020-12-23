@@ -47,7 +47,7 @@ let DayItem = (props) => {
   let { temp, weather, dt } = props.element;
   const [showDetails, setShowDetails] = useState(false);
   let { max, min } = temp;
-  let { description } = weather[0];
+  let { main, description } = weather[0];
   let date = new Date(dt * 1000);
   let strDate = date.toString().slice(0, 7).split(" ");
   let day = strDate[0];
@@ -56,7 +56,7 @@ let DayItem = (props) => {
   return (
     <>
       <section
-        className={`daily-card_details ${description.replace(" ", "_")}`}
+        className={`daily-card_details ${main.toLowerCase()}`}
         onClick={() => setShowDetails(!showDetails)}
       >
         <div className="daily-card_details-header">
@@ -67,9 +67,11 @@ let DayItem = (props) => {
             </span>
           </div>
           <i
-            className={`wu wu-${iconKey(description)} wu-${
-              props.screenWidth < 600 ? 32 : 64
-            } wu-solid-white`}
+            className={`wu wu-${
+              main === "Clouds"
+                ? iconKey(description)
+                : iconKey(main.toLowerCase())
+            }  wu-${props.screenWidth < 600 ? 32 : 64} wu-solid-white`}
           ></i>
           <div className="daily-card_temperatures">
             <p>{Math.round(max)}°C</p>

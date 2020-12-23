@@ -27,6 +27,7 @@ const WeatherCard = ({
     country: "",
   };
   const { main, weather } = details;
+
   const months = [
     "January",
     "February",
@@ -81,10 +82,7 @@ const WeatherCard = ({
     <>
       <div className="weather-card">
         <div
-          className={`weather-card-wrapper ${state.description.replace(
-            " ",
-            "_"
-          )}`}
+          className={`weather-card-wrapper ${weather[0].main.toLowerCase()}`}
         >
           <div className="weather-card-title">
             <p>
@@ -104,7 +102,11 @@ const WeatherCard = ({
             <div className="weather-card_panel">
               <div className="weather-card_panel main">
                 <div
-                  className={`wu wu-${iconKey(state.description)} wu-${
+                  className={`wu wu-${
+                    weather[0].main === "Clouds"
+                      ? iconKey(state.description)
+                      : iconKey(weather[0].main.toLowerCase())
+                  } wu-${
                     screenWidth < 400 ? "64" : "128"
                   } wu-solid-white wu-${dayTime()}`}
                 ></div>
@@ -143,7 +145,6 @@ const WeatherCard = ({
                 <p className="details">
                   visibility: {state.visibility / 1000} km
                 </p>
-                <button className="btn">Show more</button>
               </section>
             )}
           </div>
@@ -154,7 +155,7 @@ const WeatherCard = ({
 };
 export let iconKey = (element) => {
   switch (element) {
-    case "clear sky":
+    case "clear":
       return "clear";
     case "few clouds":
       return "mostlycloudy";
@@ -164,17 +165,23 @@ export let iconKey = (element) => {
       return "cloudy";
     case "overcast clouds":
       return "cloudy";
-    case "shower rain":
-      return "flurries";
     case "rain":
       return "rain";
-    case "light rain":
+    case "drizzle":
       return "flurries";
     case "thunderstorm":
       return "tstorms";
     case "snow":
       return "snow";
-    case "mist":
+    case "mist" ||
+      "smoke" ||
+      "haze" ||
+      "dust" ||
+      "fog" ||
+      "sand" ||
+      "ash" ||
+      "squal" ||
+      "tornado":
       return "fog";
     default:
       return "unknown";

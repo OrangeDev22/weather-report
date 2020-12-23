@@ -55,18 +55,25 @@ body {
   overflow: hidden;
 }
 
-.clear_sky {
+.clear {
   background: rgb(103, 175, 221);
 }
-.broken_clouds,
-.overcast_clouds {
+.clouds {
   background: rgba(112, 112, 112, 0.561);
 }
-.few_clouds,
+/* .few_clouds,
 .scattered_clouds {
   background: rgba(127, 165, 189, 1);
-}
-.mist {
+} */
+.mist,
+.smoke,
+.haze,
+.dust,
+.fog,
+.sand,
+.ash,
+.squal,
+.tornado {
   background: rgb(74, 64, 123);
 }
 .rain {
@@ -75,8 +82,7 @@ body {
 .thunderstorm {
   background: rgb(76, 114, 115);
 }
-.shower_rain,
-.light_rain {
+.drizzle {
   background: rgb(87, 97, 113);
 }
 .snow {
@@ -191,10 +197,6 @@ p {
     display: flex;
     padding: 2px;
   }
-
-  /* .weather-card-panel-wrapper :nth-child(1) {
-    order: 1;
-  } */
 
   .weather-card_panel {
     flex-grow: 2;

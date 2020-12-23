@@ -63,11 +63,13 @@ const Hourly = ({ details, timezone_offset, screenWidth }) => {
         <h1>Hourly forecast</h1>
       </div>
       {displayChart && (
-        <Chart
-          data={hours}
-          timezone_offset={timezone_offset}
-          screenWidth={screenWidth}
-        />
+        <div className="chart-container">
+          <Chart
+            data={hours}
+            timezone_offset={timezone_offset}
+            screenWidth={screenWidth}
+          />
+        </div>
       )}
       {createHourlyItems()}
     </>
@@ -90,12 +92,12 @@ let HourlyItem = ({
   let strDate = date.toString().slice(0, 7).split(" ");
   let day = strDate[0];
   let dayNumber = date.getUTCDate();
-  let { description } = weather[0];
+  let { description, main } = weather[0];
   let hour = date.getUTCHours();
   return (
     <>
       <div
-        className={`hourly-card-container ${description.replace(" ", "_")}`}
+        className={`hourly-card-container ${main.toLowerCase()}`}
         onClick={() => {
           setShowDetails(!showDetails);
         }}
@@ -112,9 +114,11 @@ let HourlyItem = ({
             °C
           </span>
           <i
-            className={`wu wu-${iconKey(description)} wu-${
-              screenWidth < 600 ? "32" : "64"
-            } wu-solid-white`}
+            className={`wu wu-${
+              main === "Clouds"
+                ? iconKey(description)
+                : iconKey(main.toLowerCase())
+            } wu-${screenWidth < 600 ? "32" : "64"} wu-solid-white`}
           ></i>
           <div className="hourly-card-description-wrapper">
             <span>

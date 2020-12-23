@@ -1,0 +1,49 @@
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 20px;
+  height: 600px;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.btn-error {
+  display: inline-block;
+  background: rgb(255, 153, 85);
+  color: white;
+  padding: 1.25rem 1.75rem;
+  border-radius: black;
+  border-color: transparent;
+  text-transform: capitalize;
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+@media only screen and (max-width: 600px) {
+  .error-container {
+    font-size: 2rem;
+  }
+  .btn-error {
+    display: inline-block;
+    background: rgb(255, 153, 85);
+    color: white;
+    padding: 1.25rem 1.25rem;
+    border-radius: black;
+    border-color: transparent;
+    text-transform: capitalize;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    text-decoration: none;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s linear;
+  }
+}

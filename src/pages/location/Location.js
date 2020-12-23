@@ -11,6 +11,7 @@ import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import countryList from "../../components/navbar/country_list.json";
+import { useHistory } from "react-router-dom";
 let DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
@@ -18,6 +19,7 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 const Location = ({ screenWidth }) => {
+  const history = useHistory();
   const { location, latitude, longitude, countryCode } = useParams();
   const [currentDetails, setCurrent] = useState([]);
   const [locationDetails, setLocationDetails] = useState([]);
@@ -39,23 +41,33 @@ const Location = ({ screenWidth }) => {
   };
   useEffect(() => {
     setLoading(true);
-    setCountryName(
-      countryList.find((country) => {
-        return country.country_code === countryCode;
-      }).name
-    );
-    fetchLocation(location, countryCode, key)
-      .then((data) => {
-        setCurrent(data);
-        if (latitude != null && longitude != null) {
-          oneCall(latitude, longitude);
-        } else {
-          oneCall(data.coord.lat, data.coord.lon);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    console.log(location, latitude, longitude, countryCode);
+    if (
+      location != null &&
+      latitude != null &&
+      longitude != null &&
+      countryCode != null
+    ) {
+      setCountryName(
+        countryList.find((country) => {
+          return country.country_code === countryCode;
+        }).name
+      );
+      fetchLocation(location, countryCode, key)
+        .then((data) => {
+          setCurrent(data);
+          if (latitude != null && longitude != null) {
+            oneCall(latitude, longitude);
+          } else {
+            oneCall(data.coord.lat, data.coord.lon);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      history.push("/*");
+    }
   }, [location]);
   if (loading) return <h4>Loading...</h4>;
 
