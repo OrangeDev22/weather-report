@@ -3,7 +3,9 @@ import { iconKey } from "../weathercard";
 import { BiChevronsUp } from "react-icons/bi";
 import "../../css/Daily.css";
 import "leaflet/dist/leaflet.css";
-const Daily = ({ details, location, screenWidth }) => {
+import { ConvertTemperature } from "../../utils/tempUtils";
+
+const Daily = ({ details, location, screenWidth, unit }) => {
   const defaultState = {
     daily: [],
   };
@@ -25,6 +27,7 @@ const Daily = ({ details, location, screenWidth }) => {
       return (
         <DayItem
           element={element}
+          unit={unit}
           key={location + "" + index + new Date().getTime().toString()}
           screenWidth={screenWidth}
         />
@@ -45,6 +48,7 @@ const Daily = ({ details, location, screenWidth }) => {
 };
 let DayItem = (props) => {
   let { temp, weather, dt } = props.element;
+  const unit = props.unit;
   const [showDetails, setShowDetails] = useState(false);
   let { max, min } = temp;
   let { main, description } = weather[0];
@@ -84,8 +88,13 @@ let DayItem = (props) => {
             }  wu-${props.screenWidth < 600 ? 32 : 64} wu-solid-white`}
           ></i>
           <div className="daily-card_temperatures">
-            <span>{Math.round(max)}°C</span>
-            <span>/{Math.round(min)}°C</span>
+            <span>{`${Math.round(ConvertTemperature(max, unit))}`}</span>
+            <span>
+              /
+              {`${Math.round(ConvertTemperature(min, unit))} ${
+                unit === "celsius" ? "°C" : "°F"
+              }`}
+            </span>
           </div>
           <div className="description_wrapper">
             <p>

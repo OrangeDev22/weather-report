@@ -15,7 +15,7 @@ let DefaultIcon = L.icon({
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
-const Home = ({ screenWidth }) => {
+const Home = ({ screenWidth, unit, setUnit }) => {
   const [details, setDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedTab, setSelectedTab] = useState(0);
@@ -26,7 +26,7 @@ const Home = ({ screenWidth }) => {
   const url =
     "http://api.ipstack.com/check?access_key=d4d7e15716eb60585620301f3408eaa5&format=1";
 
-  const unit = "celcius";
+  // const unit = "celcius";
   const getClientDetails = async () => {
     const response = await fetch(url);
     const data = await response.json();
@@ -64,6 +64,8 @@ const Home = ({ screenWidth }) => {
         city={details.city}
         temp={locationDetails.current.temp}
         screenWidth={screenWidth}
+        unit={unit}
+        setUnit={setUnit}
       />
       <main>
         <WeatherCard
@@ -95,6 +97,7 @@ const Home = ({ screenWidth }) => {
               details={locationDetails}
               location={details.city}
               screenWidth={screenWidth}
+              unit={unit}
             />
           )}
           {selectedTab === 1 && (
@@ -102,6 +105,7 @@ const Home = ({ screenWidth }) => {
               details={locationDetails.hourly}
               timezone_offset={locationDetails.timezone_offset}
               screenWidth={screenWidth}
+              unit={unit}
             />
           )}
           <Map latitude={details.latitude} longitude={details.longitude} />

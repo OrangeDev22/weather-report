@@ -124,7 +124,8 @@ p {
   transition: all 0.3s linear;
 }
 .temperature {
-  font-size: 2.5em;
+  width: 2em;
+  font-size: 2.5rem;
 }
 .weather_description {
   margin: 2px;

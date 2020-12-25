@@ -1,6 +1,7 @@
 import React, { useReducer, useState, useEffect } from "react";
 import { WiHumidity, WiBarometer } from "react-icons/wi";
 import { MdVisibility } from "react-icons/md";
+import { ConvertTemperature } from "../../utils/tempUtils";
 const WeatherCard = ({
   city,
   unit,
@@ -10,9 +11,10 @@ const WeatherCard = ({
   country,
   screenWidth,
 }) => {
-  const convertTemperature = (temperature) => {
-    return unit === "celcius" ? temperature : (temperature * 9) / 5 - 459.67;
-  };
+  // const convertTemperature = (temperature) => {
+  //   console.log("unit", unit);
+  //   return unit === "celsius" ? temperature : (9 * temperature) / 5 + 32;
+  // };
   const defaultState = {
     cityName: "",
     date: "",
@@ -111,8 +113,8 @@ const WeatherCard = ({
                   } wu-solid-white wu-${dayTime()}`}
                 ></div>
                 <p className="temperature">
-                  {Math.round(convertTemperature(state.temp))}°{""}
-                  {unit === "celcius" ? "c" : "f"}
+                  {Math.round(ConvertTemperature(state.temp, unit))}°{""}
+                  {unit === "celsius" ? "C" : "F"}
                 </p>
               </div>
               <div className="details-container">

@@ -11,6 +11,7 @@ const App = () => {
   };
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [unit, setUnit] = useState("celsius");
   useEffect(() => {
     window.addEventListener("resize", checkWidth);
     return () => {
@@ -22,7 +23,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route exact path="/">
-            <Home screenWidth={screenWidth} />
+            <Home screenWidth={screenWidth} unit={unit} setUnit={setUnit} />
           </Route>
           <Route
             path="/location/:location/:countryCode?/:latitude?/:longitude?"

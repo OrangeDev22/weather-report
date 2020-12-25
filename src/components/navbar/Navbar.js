@@ -3,7 +3,8 @@ import "../../css/NavBar.css";
 import cityList from "./city_list.json";
 import { useHistory } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
-const NavBar = ({ city, temp, screenWidth }) => {
+import { ConvertTemperature } from "../../utils/tempUtils";
+const NavBar = ({ city, temp, screenWidth, unit, setUnit }) => {
   let history = useHistory();
   const [display, setDisplay] = useState(false);
   const [options, setOptions] = useState([]);
@@ -72,6 +73,11 @@ const NavBar = ({ city, temp, screenWidth }) => {
     searchCity(value.name, value.lat, value.lon, value.country);
   };
 
+  const changeTemperatureUnit = () => {
+    if (unit === "celsius") setUnit("fahrenheit");
+    else setUnit("celsius");
+  };
+
   const onChangeHandler = (value) => {
     setSearch(value);
     setCitySearch(value.toLowerCase());
@@ -84,51 +90,75 @@ const NavBar = ({ city, temp, screenWidth }) => {
         <div className="nav-bar-main-container">
           <div className="title-wrapper">
             <h4>{city}</h4>
-            <h4>{Math.round(temp)}°C</h4>
+            <h4>{`${Math.round(ConvertTemperature(temp, unit))} ${
+              unit === "celsius" ? "°C" : "°F"
+            }`}</h4>
           </div>
         </div>
       )}
-      <div className="input-container" ref={wrapperRef}>
-        <div className="input-wrapper">
-          {screenWidth < 600 && (
-            <div className="icon-container">
-              <BsSearch />
+      <div className="nav-bar-main-wrapper">
+        <div className="units-wrapper" onClick={() => changeTemperatureUnit()}>
+          <span
+            className={`temperature-unit ${
+              unit === "celsius" ? "unit-selected" : ""
+            }`}
+          >
+            C°
+          </span>
+          <span> | </span>
+          <span
+            className={`temperature-unit ${
+              unit === "fahrenheit" ? "unit-selected" : ""
+            }`}
+          >
+            {" "}
+            F°
+          </span>
+        </div>
+        <div className="input-container" ref={wrapperRef}>
+          <div className="input-wrapper">
+            {screenWidth < 600 && (
+              <div className="icon-container">
+                <BsSearch />
+              </div>
+            )}
+            <input
+              ref={inputRef}
+              className="input-search"
+              type="submmit"
+              placeholder="type a locaiton name"
+              onKeyPress={keyPressedHandler}
+              onChange={(e) => onChangeHandler(e.target.value)}
+              value={search}
+              autoComplete="off"
+            />
+          </div>
+
+          {display && (
+            <div className="autoContainer">
+              {options
+                .filter(
+                  ({ name }) => name.toLowerCase().indexOf(citySearch) > -1
+                )
+                .slice(0, 20)
+                .map((value, index) => {
+                  return (
+                    <div
+                      onClick={() => {
+                        setCity(value);
+                      }}
+                      className={`option ${value.name}`}
+                      key={index}
+                    >
+                      <span>
+                        {value.name} , {value.country}
+                      </span>
+                    </div>
+                  );
+                })}
             </div>
           )}
-          <input
-            ref={inputRef}
-            className="input-search"
-            type="submmit"
-            placeholder="type a locaiton name"
-            onKeyPress={keyPressedHandler}
-            onChange={(e) => onChangeHandler(e.target.value)}
-            value={search}
-            autoComplete="off"
-          />
         </div>
-
-        {display && (
-          <div className="autoContainer">
-            {options
-              .filter(({ name }) => name.toLowerCase().indexOf(citySearch) > -1)
-              .slice(0, 20)
-              .map((value, index) => {
-                return (
-                  <div
-                    onClick={() => {
-                      setCity(value);
-                    }}
-                    className={`option ${value.name}`}
-                    key={index}
-                  >
-                    <span>
-                      {value.name} , {value.country}
-                    </span>
-                  </div>
-                );
-              })}
-          </div>
-        )}
       </div>
     </nav>
   );

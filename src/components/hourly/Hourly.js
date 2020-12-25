@@ -3,7 +3,9 @@ import Chart from "../chart";
 import { iconKey } from "../weathercard";
 import { BiChevronsUp } from "react-icons/bi";
 import "../../css/Hour.css";
-const Hourly = ({ details, timezone_offset, screenWidth }) => {
+import { ConvertTemperature } from "../../utils/tempUtils";
+
+const Hourly = ({ details, timezone_offset, screenWidth, unit }) => {
   const [hours, setHours] = useState([]);
   const [displayChart, setDisplayChart] = useState(true);
   let createHourlyItems = () => {
@@ -31,6 +33,7 @@ const Hourly = ({ details, timezone_offset, screenWidth }) => {
           wind_speed={wind_speed}
           dew_point={dew_point}
           weather={weather}
+          unit={unit}
           screenWidth={screenWidth}
         />
       );
@@ -84,6 +87,7 @@ let HourlyItem = ({
   wind_speed,
   dew_point,
   weather,
+  unit,
   screenWidth,
 }) => {
   let [showDetails, setShowDetails] = useState(false);
@@ -110,10 +114,13 @@ let HourlyItem = ({
               {day} {dayNumber < 10 ? "0" + dayNumber : dayNumber}
             </span>
           </div>
-          <span>
-            {Math.round(temp)}
-            °C
-          </span>
+          <div className="hourly-card-header-temperature-wrapper">
+            <span>
+              {`${Math.round(ConvertTemperature(temp, unit))}${
+                unit === "celsius" ? "°C" : "°F"
+              }`}
+            </span>
+          </div>
           <i
             className={`wu wu-${
               main === "Clouds"
