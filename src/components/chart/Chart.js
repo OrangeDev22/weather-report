@@ -3,20 +3,19 @@ import {
   AreaChart,
   Area,
   XAxis,
-  YAxis,
-  CartesianGrid,
   Tooltip,
   ResponsiveContainer,
   LabelList,
 } from "recharts";
-import ConvertTemperature from "../../utils/tempUtils";
+
 const Chart = ({ data, screenWidth }) => {
-  const maxTemp = Math.max.apply(
-    Math,
-    data.map(function (element) {
-      return element.temp;
-    })
-  );
+  //Function that'll search the max number in the array for the chart
+  // const maxTemp = Math.max.apply(
+  //   Math,
+  //   data.map(function (element) {
+  //     return element.temp;
+  //   })
+  // );
 
   return (
     <div className="chart-container">

@@ -8,6 +8,33 @@ import { ConvertTemperature } from "../../utils/tempUtils";
 const Hourly = ({ details, timezone_offset, screenWidth, unit }) => {
   const [hours, setHours] = useState([]);
   const [displayChart, setDisplayChart] = useState(true);
+  let newHours = [];
+  useEffect(() => {
+    details.slice(0, 24).forEach((element, index) => {
+      let time = element.dt + timezone_offset;
+      let date = new Date(time * 1000);
+      let hour = date.getUTCHours();
+      if (index % 2 !== 0) {
+        let newHour = {
+          name: `${
+            index === 0
+              ? ""
+              : `${hour < 10 ? "0" + hour + ":00" : hour + ":00"}`
+          }`,
+          hour: hour,
+          temp: ConvertTemperature(element.temp, unit),
+          label: `${Math.round(ConvertTemperature(element.temp, unit))}`,
+        };
+        newHours = [...newHours, newHour];
+      }
+    });
+    setHours(newHours);
+  }, [unit]);
+
+  useEffect(() => {
+    screenWidth < 600 ? setDisplayChart(false) : setDisplayChart(true);
+  }, [screenWidth]);
+
   let createHourlyItems = () => {
     return details.slice(0, 24).map((element) => {
       let {
@@ -35,30 +62,12 @@ const Hourly = ({ details, timezone_offset, screenWidth, unit }) => {
           weather={weather}
           unit={unit}
           screenWidth={screenWidth}
+          key={dt}
         />
       );
     });
   };
 
-  useEffect(() => {
-    setHours(
-      details.slice(0, 24).map((element, index) => {
-        let time = element.dt + timezone_offset;
-        let date = new Date(time * 1000);
-        let hour = date.getUTCHours();
-
-        return {
-          name: `${index === 0 ? "" : `${hour}`}`,
-          hour: hour,
-          temp: ConvertTemperature(element.temp, unit),
-          label: `${Math.round(ConvertTemperature(element.temp, unit))}`,
-        };
-      })
-    );
-  }, [unit]);
-  useEffect(() => {
-    screenWidth < 600 ? setDisplayChart(false) : setDisplayChart(true);
-  });
   return (
     <>
       <div className="hourly-header">

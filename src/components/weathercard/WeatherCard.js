@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import { WiHumidity, WiBarometer } from "react-icons/wi";
 import { MdVisibility } from "react-icons/md";
 import { ConvertTemperature } from "../../utils/tempUtils";

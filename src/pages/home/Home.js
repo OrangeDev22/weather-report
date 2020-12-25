@@ -6,7 +6,6 @@ import Main from "../../components/main";
 const Home = ({ screenWidth, unit, setUnit }) => {
   const [details, setDetails] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedTab, setSelectedTab] = useState(0);
   const [locationDetails, setLocationDetails] = useState([]);
   const [currentDetails, setCurrent] = useState([]);
   const key = "05e47cb6f8fc8afa437fc32af1218b36";
@@ -42,10 +41,6 @@ const Home = ({ screenWidth, unit, setUnit }) => {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-
-  const handleChange = (newValue) => {
-    setSelectedTab(newValue);
-  };
 
   return (
     <Main
