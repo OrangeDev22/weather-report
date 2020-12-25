@@ -10,7 +10,6 @@ const NavBar = ({ city, temp, screenWidth, unit, setUnit }) => {
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");
   const [citySearch, setCitySearch] = useState("");
-  const [showInput, setShowInput] = useState(false);
   const wrapperRef = useRef(null);
   const inputRef = useRef(null);
 

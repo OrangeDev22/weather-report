@@ -27,7 +27,13 @@ const App = () => {
           </Route>
           <Route
             path="/location/:location/:countryCode?/:latitude?/:longitude?"
-            children={<Location screenWidth={screenWidth} />}
+            children={
+              <Location
+                screenWidth={screenWidth}
+                unit={unit}
+                setUnit={setUnit}
+              />
+            }
           ></Route>
           <Route path="*">
             <Error />
