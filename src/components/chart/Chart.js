@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
+import ConvertTemperature from "../../utils/tempUtils";
 const Chart = ({ data, screenWidth }) => {
   const maxTemp = Math.max.apply(
     Math,
@@ -16,11 +17,12 @@ const Chart = ({ data, screenWidth }) => {
       return element.temp;
     })
   );
+
   return (
     <div className="chart-container">
       <ResponsiveContainer
         width={"100%"}
-        height={screenWidth < 600 ? 125 : 200}
+        height={screenWidth < 600 ? 125 : 300}
       >
         <AreaChart
           data={data}

@@ -50,12 +50,12 @@ const Hourly = ({ details, timezone_offset, screenWidth, unit }) => {
         return {
           name: `${index === 0 ? "" : `${hour}`}`,
           hour: hour,
-          temp: element.temp,
-          label: `${Math.round(element.temp)}`,
+          temp: ConvertTemperature(element.temp, unit),
+          label: `${Math.round(ConvertTemperature(element.temp, unit))}`,
         };
       })
     );
-  }, []);
+  }, [unit]);
   useEffect(() => {
     screenWidth < 600 ? setDisplayChart(false) : setDisplayChart(true);
   });
@@ -148,6 +148,7 @@ let HourlyItem = ({
           wind_speed={wind_speed}
           dew_point={dew_point}
           showDetails={showDetails}
+          unit={unit}
         />
       </div>
     </>
@@ -162,6 +163,7 @@ const HourDetail = ({
   wind_speed,
   dew_point,
   showDetails,
+  unit,
 }) => {
   return (
     <div
@@ -171,7 +173,10 @@ const HourDetail = ({
     >
       <div className="panel left">
         <p>
-          Feels like: <span>{feels_like} °C</span>
+          Feels like:{" "}
+          <span>{`${Math.round(ConvertTemperature(feels_like, unit))}${
+            unit === "celsius" ? "°C" : "°F"
+          }`}</span>
         </p>
         <p>
           Pressure: <span>{pressure} hPa</span>
@@ -188,7 +193,10 @@ const HourDetail = ({
           Wind speed: <span>{wind_speed} km</span>
         </p>
         <p>
-          Dew point: <span>{dew_point} °C</span>
+          Dew point:{" "}
+          <span>{`${Math.round(ConvertTemperature(dew_point, unit))}${
+            unit === "celsius" ? "°C" : "°F"
+          }`}</span>
         </p>
       </div>
     </div>

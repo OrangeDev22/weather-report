@@ -106,12 +106,16 @@ let DayItem = (props) => {
             <BiChevronsUp size={props.screenWidth < 600 ? 16 : 32} />
           </h3>
         </div>
-        <DayDetails element={props.element} showDetails={showDetails} />
+        <DayDetails
+          element={props.element}
+          showDetails={showDetails}
+          unit={unit}
+        />
       </section>
     </>
   );
 };
-let DayDetails = ({ element, showDetails }) => {
+let DayDetails = ({ element, showDetails, unit }) => {
   let { sunrise, sunset, temp, humidity, pressure, wind_speed } = element;
   let { night, eve, morn } = temp;
   let sunriseDate = new Date(sunrise * 1000),
@@ -150,13 +154,22 @@ let DayDetails = ({ element, showDetails }) => {
       </div>
       <div className="panel">
         <p>
-          Morning: <span>{morn}°C</span>
+          Morning:{" "}
+          <span>{`${Math.round(ConvertTemperature(morn, unit))}${
+            unit === "celsius" ? "°C" : "°F"
+          }`}</span>
         </p>
         <p>
-          Evening: <span>{eve}°C</span>
+          Evening:{" "}
+          <span>{`${Math.round(ConvertTemperature(eve, unit))}${
+            unit === "celsius" ? "°C" : "°F"
+          }`}</span>
         </p>
         <p>
-          night: <span>{night}°C</span>
+          night:{" "}
+          <span>{`${Math.round(ConvertTemperature(night, unit))}${
+            unit === "celsius" ? "°C" : "°F"
+          }`}</span>
         </p>
         <p>
           Presure: <span>{pressure} hPa</span>
