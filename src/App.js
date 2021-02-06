@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Home from "./pages/Home";
 import Location from "./pages/location";
 import Error from "./pages/error";
@@ -7,35 +7,17 @@ import { AppProvider } from "./contexts/AppProvider";
 import "leaflet/dist/leaflet.css";
 
 const App = () => {
-  const checkWidth = () => {
-    setScreenWidth(window.innerWidth);
-  };
-
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  const [unit, setUnit] = useState("celsius");
-  useEffect(() => {
-    window.addEventListener("resize", checkWidth);
-    return () => {
-      window.removeEventListener("resize", checkWidth);
-    };
-  });
   return (
     <>
       <AppProvider>
         <Router>
           <Switch>
             <Route exact path="/">
-              <Home screenWidth={screenWidth} unit={unit} setUnit={setUnit} />
+              <Home />
             </Route>
             <Route
               path="/location/:location/:countryCode?/:latitude?/:longitude?"
-              children={
-                <Location
-                  screenWidth={screenWidth}
-                  unit={unit}
-                  setUnit={setUnit}
-                />
-              }
+              children={<Location />}
             ></Route>
             <Route path="*">
               <Error />

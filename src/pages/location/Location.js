@@ -5,6 +5,8 @@ import "leaflet/dist/leaflet.css";
 import countryList from "../../components/navbar/country_list.json";
 import { useHistory } from "react-router-dom";
 import Main from "../../components/main";
+import Loading from "../../components/Loading";
+
 const API_KEY = process.env.REACT_APP_OW_RAWG_API_KEY;
 
 const Location = () => {
@@ -52,7 +54,7 @@ const Location = () => {
       history.push("/*");
     }
   }, [location, countryCode]);
-  if (loading) return <h4>Loading...</h4>;
+  if (loading) return <Loading />;
 
   return (
     <Main

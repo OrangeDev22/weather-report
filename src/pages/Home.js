@@ -4,6 +4,7 @@ import { fetchLocationByCoords, fetchAllInOneCall } from "../useFetch";
 import Main from "../components/main";
 import countryList from "../components/navbar/country_list.json";
 import { useHistory } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const API_KEY = process.env.REACT_APP_OW_RAWG_API_KEY;
 
@@ -20,7 +21,6 @@ const Home = () => {
   const location = navigator.geolocation;
 
   useEffect(() => {
-    console.log(permission);
     location.getCurrentPosition(
       (position) => {
         setLatitude(position.coords.latitude);
@@ -28,11 +28,10 @@ const Home = () => {
         setPermission("granted");
       },
       (error) => {
-        console.log(error);
         setPermission("denied");
       }
     );
-  }, [location]);
+  }, [location, permission]);
 
   useEffect(() => {
     if (permission === "granted") {
@@ -57,7 +56,7 @@ const Home = () => {
     }
   }, [permission]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
 
   return (
     <Main

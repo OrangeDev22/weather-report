@@ -58,9 +58,15 @@ input {
   padding: 1em;
   outline-style: none;
   word-break: break-all;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
 .option:hover {
   background-color: rgb(255, 153, 85);
+  cursor: pointer;
 }
 .selected {
   background-color: blueviolet;

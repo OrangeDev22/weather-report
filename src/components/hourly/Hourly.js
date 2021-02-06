@@ -8,8 +8,9 @@ const Hourly = ({ details, timezone_offset }) => {
   const { unit, screenWidth, ConvertTemperature } = useApp();
   const [hours, setHours] = useState([]);
   const [displayChart, setDisplayChart] = useState(true);
-  let newHours = [];
+
   useEffect(() => {
+    let newHours = [];
     details.slice(0, 24).forEach((element, index) => {
       const time = element.dt + timezone_offset;
       const date = new Date(time * 1000);
@@ -81,4 +82,4 @@ const Hourly = ({ details, timezone_offset }) => {
   );
 };
 
-export default Hourly;
+export default React.memo(Hourly);
