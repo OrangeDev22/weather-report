@@ -3,12 +3,12 @@ import { useApp } from "../../contexts/AppProvider";
 
 function DayDetails({ element, showDetails }) {
   const { unit, ConvertTemperature } = useApp();
-  let { sunrise, sunset, temp, humidity, pressure, wind_speed } = element;
-  let { night, eve, morn } = temp;
-  let sunriseDate = new Date(sunrise * 1000),
+  const { sunrise, sunset, temp, humidity, pressure, wind_speed } = element;
+  const { night, eve, morn } = temp;
+  const sunriseDate = new Date(sunrise * 1000),
     sunriseHour = sunriseDate.getHours(),
     sunriseMinutes = sunriseDate.getMinutes();
-  let sunsetDate = new Date(sunset * 1000),
+  const sunsetDate = new Date(sunset * 1000),
     sunsetHour = sunsetDate.getHours(),
     sunsetMinutes = sunsetDate.getMinutes();
   return (

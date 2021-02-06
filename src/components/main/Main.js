@@ -14,27 +14,14 @@ let DefaultIcon = L.icon({
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
-const Main = ({
-  screenWidth,
-  unit,
-  setUnit,
-  location,
-  locationDetails,
-  currentDetails,
-  countryName,
-}) => {
+const Main = ({ location, locationDetails, currentDetails, countryName }) => {
   const [selectedTab, setSelectedTab] = useState(0);
-
   const handleChange = (newValue) => {
     setSelectedTab(newValue);
   };
   return (
     <>
-      <NavBar
-        city={location}
-        temp={locationDetails.current.temp}
-        setUnit={setUnit}
-      />
+      <NavBar city={location} temp={locationDetails.current.temp} />
       <main>
         <WeatherCard
           city={location}
@@ -59,19 +46,12 @@ const Main = ({
         </div>
         <div className="main-container">
           {selectedTab === 0 && (
-            <Daily
-              details={locationDetails}
-              location={location}
-              screenWidth={screenWidth}
-              unit={unit}
-            />
+            <Daily details={locationDetails} location={location} />
           )}
           {selectedTab === 1 && (
             <Hourly
               details={locationDetails.hourly}
               timezone_offset={locationDetails.timezone_offset}
-              screenWidth={screenWidth}
-              unit={unit}
             />
           )}
           <Map

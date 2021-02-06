@@ -2,11 +2,10 @@ import React, { useState, useReducer, useEffect } from "react";
 import "../../css/Daily.css";
 import "leaflet/dist/leaflet.css";
 import DayItem from "./DayItem";
-import { ConvertTemperature } from "../../utils/tempUtils";
 import { useApp } from "../../contexts/AppProvider";
 
 const Daily = ({ details, location }) => {
-  const { unit, screenWidth, iconKey } = useApp();
+  const { unit, screenWidth } = useApp();
   const defaultState = {
     daily: [],
   };
@@ -23,7 +22,7 @@ const Daily = ({ details, location }) => {
     dispatch({ type: "SETSTATE" });
   }, []);
 
-  let DailyList = () => {
+  const DailyList = () => {
     return state.daily.map((element, index) => {
       return (
         <DayItem

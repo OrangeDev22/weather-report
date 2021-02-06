@@ -4,17 +4,16 @@ import { BiChevronsUp } from "react-icons/bi";
 import DayDetails from "./DayDetails";
 
 function DayItem(props) {
-  const { iconKey, ConvertTemperature } = useApp();
-  let { temp, weather, dt } = props.element;
-  const unit = props.unit;
+  const { unit, iconKey, ConvertTemperature } = useApp();
+  const { temp, weather, dt } = props.element;
   const [showDetails, setShowDetails] = useState(false);
-  let { max, min } = temp;
-  let { main, description } = weather[0];
-  let date = new Date(dt * 1000);
-  let strDate = date.toString().slice(0, 7).split(" ");
-  let day = strDate[0];
-  let dayNumber = date.getUTCDate();
-  let month = date.getUTCMonth();
+  const { max, min } = temp;
+  const { main, description } = weather[0];
+  const date = new Date(dt * 1000);
+  const strDate = date.toString().slice(0, 7).split(" ");
+  const day = strDate[0];
+  const dayNumber = date.getUTCDate();
+  const month = date.getUTCMonth();
   const descriptionHandler = (description) => {
     let str = "";
     if (description[1] != null) {

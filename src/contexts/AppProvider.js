@@ -8,7 +8,7 @@ export const useApp = () => {
 
 export const AppProvider = ({ children }) => {
   const [unit, setUnit] = useState("celsius");
-  const [location, setLocation] = useState(null);
+
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const checkWidth = () => {

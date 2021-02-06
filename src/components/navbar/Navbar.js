@@ -3,12 +3,11 @@ import "../../css/NavBar.css";
 import cityList from "./city_list.json";
 import { useHistory } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
-import { ConvertTemperature } from "../../utils/tempUtils";
 import { useApp } from "../../contexts/AppProvider";
 
 const NavBar = ({ city, temp }) => {
-  let history = useHistory();
-  const { unit, setUnit, screenWidth } = useApp();
+  const history = useHistory();
+  const { unit, setUnit, screenWidth, ConvertTemperature } = useApp();
   const [display, setDisplay] = useState(false);
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");

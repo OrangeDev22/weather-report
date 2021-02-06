@@ -61,10 +61,7 @@ body {
 .clouds {
   background: rgba(112, 112, 112, 0.561);
 }
-/* .few_clouds,
-.scattered_clouds {
-  background: rgba(127, 165, 189, 1);
-} */
+
 .mist,
 .smoke,
 .haze,
@@ -251,25 +248,3 @@ p {
     order: 1;
   }
 }
-/*
-  code below will be used in the future
-*/
-/*
-
-.daily-card {
-  position: relative;
-
-  display: flex;
-
-  overflow-x: auto;
-}
-.daily-card::-webkit-scrollbar {
-  width: 0;
-}
-
-.daily-card .daily-card_details {
-  min-width: 110px;
-
-  text-align: center;
-  background-color: rgba(103, 175, 221, 1);
-} */

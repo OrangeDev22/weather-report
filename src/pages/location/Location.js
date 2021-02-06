@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import Main from "../../components/main";
 const API_KEY = process.env.REACT_APP_OW_RAWG_API_KEY;
 
-const Location = ({ screenWidth, unit, setUnit }) => {
+const Location = () => {
   const history = useHistory();
   const { location, latitude, longitude, countryCode } = useParams();
   const [currentDetails, setCurrent] = useState([]);
@@ -56,9 +56,6 @@ const Location = ({ screenWidth, unit, setUnit }) => {
 
   return (
     <Main
-      screenWidth={screenWidth}
-      unit={unit}
-      setUnit={setUnit}
       location={location}
       locationDetails={locationDetails}
       currentDetails={currentDetails}

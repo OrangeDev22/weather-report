@@ -6,7 +6,7 @@ import Main from "../components/main";
 const API_KEY = process.env.REACT_APP_OW_RAWG_API_KEY;
 const IP_API_KEY = process.env.REACT_APP_IP_RAW_API_KEY;
 
-const Home = ({ screenWidth, unit, setUnit }) => {
+const Home = () => {
   const [details, setDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [locationDetails, setLocationDetails] = useState([]);
@@ -14,7 +14,6 @@ const Home = ({ screenWidth, unit, setUnit }) => {
 
   const url = `http://api.ipstack.com/check?access_key=${IP_API_KEY}&format=1`;
 
-  // const unit = "celcius";
   const getClientDetails = async () => {
     const response = await fetch(url);
     const data = await response.json();
@@ -45,9 +44,6 @@ const Home = ({ screenWidth, unit, setUnit }) => {
 
   return (
     <Main
-      screenWidth={screenWidth}
-      unit={unit}
-      setUnit={setUnit}
       location={details.city}
       locationDetails={locationDetails}
       currentDetails={currentDetails}

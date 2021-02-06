@@ -2,19 +2,18 @@ import React, { useEffect, useState } from "react";
 import Chart from "../chart";
 import HourlyItem from "./HourlyItem";
 import "../../css/Hour.css";
-import { ConvertTemperature } from "../../utils/tempUtils";
 import { useApp } from "../../contexts/AppProvider";
 
 const Hourly = ({ details, timezone_offset }) => {
-  const { unit, screenWidth } = useApp();
+  const { unit, screenWidth, ConvertTemperature } = useApp();
   const [hours, setHours] = useState([]);
   const [displayChart, setDisplayChart] = useState(true);
   let newHours = [];
   useEffect(() => {
     details.slice(0, 24).forEach((element, index) => {
-      let time = element.dt + timezone_offset;
-      let date = new Date(time * 1000);
-      let hour = date.getUTCHours();
+      const time = element.dt + timezone_offset;
+      const date = new Date(time * 1000);
+      const hour = date.getUTCHours();
       if (index % 2 !== 0) {
         let newHour = {
           name: `${
@@ -74,8 +73,6 @@ const Hourly = ({ details, timezone_offset }) => {
             wind_speed={wind_speed}
             dew_point={dew_point}
             weather={weather}
-            unit={unit}
-            screenWidth={screenWidth}
             key={dt}
           />
         );

@@ -15,13 +15,13 @@ function HourlyItem({
   weather,
 }) {
   const { unit, screenWidth, ConvertTemperature, iconKey } = useApp();
-  let [showDetails, setShowDetails] = useState(false);
-  let date = new Date(dt * 1000);
-  let strDate = date.toString().slice(0, 7).split(" ");
-  let day = strDate[0];
-  let dayNumber = date.getUTCDate();
-  let { description, main } = weather[0];
-  let hour = date.getUTCHours();
+  const [showDetails, setShowDetails] = useState(false);
+  const date = new Date(dt * 1000);
+  const strDate = date.toString().slice(0, 7).split(" ");
+  const day = strDate[0];
+  const dayNumber = date.getUTCDate();
+  const { description, main } = weather[0];
+  const hour = date.getUTCHours();
   return (
     <>
       <div
@@ -73,7 +73,6 @@ function HourlyItem({
           wind_speed={wind_speed}
           dew_point={dew_point}
           showDetails={showDetails}
-          unit={unit}
         />
       </div>
     </>

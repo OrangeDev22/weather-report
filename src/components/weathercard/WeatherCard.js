@@ -1,15 +1,10 @@
 import React, { useReducer, useEffect } from "react";
 import { WiHumidity, WiBarometer } from "react-icons/wi";
 import { MdVisibility } from "react-icons/md";
-import { ConvertTemperature } from "../../utils/tempUtils";
 import { useApp } from "../../contexts/AppProvider";
 
 const WeatherCard = ({ city, dt, timezone_offset, details, country }) => {
-  const { unit, screenWidth, iconKey } = useApp();
-  // const convertTemperature = (temperature) => {
-  //   console.log("unit", unit);
-  //   return unit === "celsius" ? temperature : (9 * temperature) / 5 + 32;
-  // };
+  const { unit, screenWidth, iconKey, ConvertTemperature } = useApp();
   const defaultState = {
     cityName: "",
     date: "",

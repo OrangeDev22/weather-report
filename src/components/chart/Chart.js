@@ -9,14 +9,6 @@ import {
 } from "recharts";
 
 const Chart = ({ data, screenWidth }) => {
-  //Function that'll search the max number in the array for the chart
-  // const maxTemp = Math.max.apply(
-  //   Math,
-  //   data.map(function (element) {
-  //     return element.temp;
-  //   })
-  // );
-
   return (
     <div className="chart-container">
       <ResponsiveContainer
