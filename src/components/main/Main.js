@@ -33,19 +33,15 @@ const Main = ({
       <NavBar
         city={location}
         temp={locationDetails.current.temp}
-        screenWidth={screenWidth}
-        unit={unit}
         setUnit={setUnit}
       />
       <main>
         <WeatherCard
           city={location}
-          unit={unit}
           dt={locationDetails.current.dt}
           timezone_offset={locationDetails.timezone_offset}
           details={currentDetails}
           country={countryName}
-          screenWidth={screenWidth}
         />
         <div className="btn-container">
           <button

@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import countryList from "../../components/navbar/country_list.json";
 import { useHistory } from "react-router-dom";
 import Main from "../../components/main";
+const API_KEY = process.env.REACT_APP_OW_RAWG_API_KEY;
 
 const Location = ({ screenWidth, unit, setUnit }) => {
   const history = useHistory();
@@ -13,10 +14,9 @@ const Location = ({ screenWidth, unit, setUnit }) => {
   const [locationDetails, setLocationDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [countryName, setCountryName] = useState("");
-  const key = "05e47cb6f8fc8afa437fc32af1218b36";
 
   const oneCall = (latitude, longitude) => {
-    fetchAllInOneCall(key, latitude, longitude)
+    fetchAllInOneCall(API_KEY, latitude, longitude)
       .then((data) => {
         setLocationDetails(data);
         setLoading(false);
@@ -36,7 +36,7 @@ const Location = ({ screenWidth, unit, setUnit }) => {
           return country.country_code === countryCode;
         }).name
       );
-      fetchLocation(location, countryCode, key)
+      fetchLocation(location, countryCode, API_KEY)
         .then((data) => {
           setCurrent(data);
           if (latitude != null && longitude != null) {

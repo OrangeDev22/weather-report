@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "leaflet/dist/leaflet.css";
-import { fetchLocation, fetchAllInOneCall } from "../../useFetch";
-import Main from "../../components/main";
+import { fetchLocation, fetchAllInOneCall } from "../useFetch";
+import Main from "../components/main";
+
+const API_KEY = process.env.REACT_APP_OW_RAWG_API_KEY;
+const IP_API_KEY = process.env.REACT_APP_IP_RAW_API_KEY;
 
 const Home = ({ screenWidth, unit, setUnit }) => {
   const [details, setDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [locationDetails, setLocationDetails] = useState([]);
   const [currentDetails, setCurrent] = useState([]);
-  const key = "05e47cb6f8fc8afa437fc32af1218b36";
 
-  const url =
-    "http://api.ipstack.com/check?access_key=d4d7e15716eb60585620301f3408eaa5&format=1";
+  const url = `http://api.ipstack.com/check?access_key=${IP_API_KEY}&format=1`;
 
   // const unit = "celcius";
   const getClientDetails = async () => {
@@ -25,12 +26,12 @@ const Home = ({ screenWidth, unit, setUnit }) => {
     getClientDetails()
       .then((data) => {
         setDetails(data);
-        fetchLocation(data.city, data.country_code, key)
+        fetchLocation(data.city, data.country_code, API_KEY)
           .then((data) => {
             setCurrent(data);
           })
           .catch((err) => console.log(err));
-        fetchAllInOneCall(key, data.latitude, data.longitude)
+        fetchAllInOneCall(API_KEY, data.latitude, data.longitude)
           .then((data) => {
             setLocationDetails(data);
             setLoading(false);

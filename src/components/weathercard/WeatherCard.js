@@ -2,15 +2,10 @@ import React, { useReducer, useEffect } from "react";
 import { WiHumidity, WiBarometer } from "react-icons/wi";
 import { MdVisibility } from "react-icons/md";
 import { ConvertTemperature } from "../../utils/tempUtils";
-const WeatherCard = ({
-  city,
-  unit,
-  dt,
-  timezone_offset,
-  details,
-  country,
-  screenWidth,
-}) => {
+import { useApp } from "../../contexts/AppProvider";
+
+const WeatherCard = ({ city, dt, timezone_offset, details, country }) => {
+  const { unit, screenWidth, iconKey } = useApp();
   // const convertTemperature = (temperature) => {
   //   console.log("unit", unit);
   //   return unit === "celsius" ? temperature : (9 * temperature) / 5 + 32;
@@ -155,38 +150,5 @@ const WeatherCard = ({
     </>
   );
 };
-export let iconKey = (element) => {
-  switch (element) {
-    case "clear":
-      return "clear";
-    case "few clouds":
-      return "mostlycloudy";
-    case "scattered clouds":
-      return "partlycloudy";
-    case "broken clouds":
-      return "cloudy";
-    case "overcast clouds":
-      return "cloudy";
-    case "rain":
-      return "rain";
-    case "drizzle":
-      return "flurries";
-    case "thunderstorm":
-      return "tstorms";
-    case "snow":
-      return "snow";
-    case "mist":
-    case "smoke":
-    case "haze":
-    case "dust":
-    case "fog":
-    case "sand":
-    case "ash":
-    case "squal":
-    case "tornado":
-      return "fog";
-    default:
-      return "unknown";
-  }
-};
+
 export default WeatherCard;
