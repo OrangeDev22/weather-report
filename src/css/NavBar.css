@@ -15,6 +15,7 @@ nav {
   margin-left: auto;
 }
 .input-container {
+  position: relative;
   margin-left: 2px;
   margin-right: 2px;
 }
@@ -28,6 +29,11 @@ nav {
   cursor: pointer;
   margin: 5px;
   color: white;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
 .unit-selected {
   font-weight: bolder;
@@ -42,7 +48,7 @@ input {
   outline: none;
 }
 .autoContainer {
-  width: 12rem;
+  width: 100%;
   position: absolute;
   background-color: rgb(36, 36, 36);
 }
@@ -51,6 +57,7 @@ input {
   align-items: center;
   padding: 1em;
   outline-style: none;
+  word-break: break-all;
 }
 .option:hover {
   background-color: rgb(255, 153, 85);

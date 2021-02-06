@@ -134,7 +134,6 @@ const NavBar = ({ city, temp }) => {
               autoComplete="off"
             />
           </div>
-
           {display && (
             <div className="autoContainer">
               {options

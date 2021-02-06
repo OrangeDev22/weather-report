@@ -12,6 +12,7 @@ export const AppProvider = ({ children }) => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const checkWidth = () => {
+    console.log(screenWidth);
     setScreenWidth(window.innerWidth);
   };
 

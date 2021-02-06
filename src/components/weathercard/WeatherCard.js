@@ -85,7 +85,7 @@ const WeatherCard = ({ city, dt, timezone_offset, details, country }) => {
               <p>
                 {`${getMonth(state.month)} `}
                 {`${state.day} `}
-                {state.hour < 12 ? "0" + state.hour : state.hour}:
+                {state.hour < 10 ? "0" + state.hour : state.hour}:
                 {state.minutes < 10 ? "0" + state.minutes : state.minutes}{" "}
               </p>
             </div>
