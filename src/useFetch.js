@@ -1,5 +1,5 @@
 export const fetchLocation = async (city, countryCode, key) => {
-  const base = "http://api.openweathermap.org/data/2.5/weather";
+  const base = "https://api.openweathermap.org/data/2.5/weather";
   const query = `?q=${city.replace(/ /g, "%20")}${
     countryCode === null ? "" : `,${countryCode}`
   }&units=metric&appid=${key}`;
@@ -9,7 +9,7 @@ export const fetchLocation = async (city, countryCode, key) => {
 };
 
 export const fetchLocationByCoords = async (latitude, longitude, key) => {
-  const base = "http://api.openweathermap.org/data/2.5/weather";
+  const base = "https://api.openweathermap.org/data/2.5/weather";
   const query = `?lat=${latitude}&lon=${longitude}&units=metric&appid=${key}`;
   const response = await fetch(base + query);
   const data = await response.json();
