@@ -27,7 +27,7 @@ const Home = () => {
         setLongitude(position.coords.longitude);
         setPermission("granted");
       },
-      (error) => {
+      () => {
         setPermission("denied");
       }
     );
