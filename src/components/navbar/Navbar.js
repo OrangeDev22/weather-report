@@ -1,34 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../../css/NavBar.css";
-import cityList from "./city_list.json";
 import { useHistory } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { useApp } from "../../contexts/AppProvider";
 
 const NavBar = ({ city, temp }) => {
   const history = useHistory();
-  const { unit, setUnit, screenWidth, ConvertTemperature } = useApp();
+  const {
+    unit,
+    setUnit,
+    screenWidth,
+    ConvertTemperature,
+    citiesList,
+  } = useApp();
   const [display, setDisplay] = useState(false);
-  const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");
   const [citySearch, setCitySearch] = useState("");
   const wrapperRef = useRef(null);
   const inputRef = useRef(null);
-
-  useEffect(() => {
-    setOptions(
-      cityList.map((element) => {
-        return {
-          id: element.id,
-          name: element.name,
-          state: element.state,
-          country: element.country,
-          lat: element.coord.lat,
-          lon: element.coord.lon,
-        };
-      })
-    );
-  }, []);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -44,20 +33,20 @@ const NavBar = ({ city, temp }) => {
     }
   };
 
-  const searchCity = (search, lat, lon, countryCode) => {
+  const searchCity = (search, lat, lng, countryCode) => {
     let baseRoute = "";
     let optionalRoute = "";
-    if (lat !== null && lon !== null) {
+    if (lat !== null && lng !== null) {
       baseRoute = `/location/${search}`;
-      optionalRoute = `/${countryCode}/${lat}/${lon}`;
+      optionalRoute = `/${countryCode}/${lat}/${lng}`;
       history.push(baseRoute + optionalRoute);
     } else {
-      let result = cityList.find((city) => {
+      let result = citiesList.find((city) => {
         return city.name.toLowerCase() === search ? city : null;
       });
       if (result != null) {
         baseRoute = `/location/${result.name}`;
-        optionalRoute = `/${result.country}/${result.coord.lat}/${result.coord.lon}`;
+        optionalRoute = `/${result.country}/${result.lat}/${result.lng}`;
         history.push(baseRoute + optionalRoute);
       } else {
         console.error("city was not found");
@@ -71,7 +60,7 @@ const NavBar = ({ city, temp }) => {
   };
 
   const setCity = (value) => {
-    searchCity(value.name, value.lat, value.lon, value.country);
+    searchCity(value.name, value.lat, value.lng, value.country);
   };
 
   const changeTemperatureUnit = () => {
@@ -136,26 +125,27 @@ const NavBar = ({ city, temp }) => {
           </div>
           {display && (
             <div className="autoContainer">
-              {options
-                .filter(
-                  ({ name }) => name.toLowerCase().indexOf(citySearch) > -1
-                )
-                .slice(0, 20)
-                .map((value, index) => {
-                  return (
-                    <div
-                      onClick={() => {
-                        setCity(value);
-                      }}
-                      className={`option ${value.name}`}
-                      key={index}
-                    >
-                      <span>
-                        {value.name} , {value.country}
-                      </span>
-                    </div>
-                  );
-                })}
+              {citiesList &&
+                citiesList
+                  .filter(
+                    ({ name }) => name.toLowerCase().indexOf(citySearch) > -1
+                  )
+                  .slice(0, 20)
+                  .map((value, index) => {
+                    return (
+                      <div
+                        onClick={() => {
+                          setCity(value);
+                        }}
+                        className={`option ${value.name}`}
+                        key={index}
+                      >
+                        <span>
+                          {value.name} , {value.country}
+                        </span>
+                      </div>
+                    );
+                  })}
             </div>
           )}
         </div>

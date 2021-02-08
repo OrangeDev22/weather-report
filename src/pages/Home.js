@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import { fetchLocationByCoords, fetchAllInOneCall } from "../useFetch";
 import Main from "../components/main";
-import countryList from "../components/navbar/country_list.json";
 import { useHistory } from "react-router-dom";
 import Loading from "../components/Loading";
+import { getName } from "country-list";
+import { useApp } from "../contexts/AppProvider";
 
 const API_KEY = process.env.REACT_APP_OW_RAWG_API_KEY;
 
 const Home = () => {
   const history = useHistory();
+  const { fetching } = useApp();
   const [locationName, setLocation] = useState("");
   const [country, setCountry] = useState("");
   const [loading, setLoading] = useState(true);
@@ -37,11 +39,7 @@ const Home = () => {
     if (permission === "granted") {
       fetchLocationByCoords(latitude, longitude, API_KEY).then((response) => {
         const countryCode = response.sys.country ? response.sys.country : "";
-        setCountry(
-          countryList.find((country) => {
-            return country.country_code === countryCode;
-          }).name
-        );
+        setCountry(getName(countryCode));
         setLocation(response.name);
         setCurrent(response);
         fetchAllInOneCall(API_KEY, latitude, longitude)
@@ -56,7 +54,7 @@ const Home = () => {
     }
   }, [permission]);
 
-  if (loading) return <Loading />;
+  if (loading || fetching) return <Loading />;
 
   return (
     <Main

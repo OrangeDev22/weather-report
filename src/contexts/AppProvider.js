@@ -8,7 +8,8 @@ export const useApp = () => {
 
 export const AppProvider = ({ children }) => {
   const [unit, setUnit] = useState("celsius");
-
+  const [citiesList, setCitiesList] = useState();
+  const [fetching, setFetching] = useState(true);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const checkWidth = () => {
@@ -61,11 +62,24 @@ export const AppProvider = ({ children }) => {
     };
   });
 
+  useEffect(() => {
+    fetch("/data/cities.json")
+      .then((response) => {
+        response.json().then((data) => {
+          setCitiesList(data);
+          setFetching(false);
+        });
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   const value = {
     unit,
     setUnit,
     iconKey,
     screenWidth,
+    citiesList,
+    fetching,
     ConvertTemperature,
   };
 

@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchLocation, fetchAllInOneCall } from "../../useFetch";
 import "leaflet/dist/leaflet.css";
-import countryList from "../../components/navbar/country_list.json";
 import { useHistory } from "react-router-dom";
 import Main from "../../components/main";
 import Loading from "../../components/Loading";
+import { getName } from "country-list";
+import { useApp } from "../../contexts/AppProvider";
 
 const API_KEY = process.env.REACT_APP_OW_RAWG_API_KEY;
 
 const Location = () => {
   const history = useHistory();
+  const { fetching } = useApp();
   const { location, latitude, longitude, countryCode } = useParams();
   const [currentDetails, setCurrent] = useState([]);
   const [locationDetails, setLocationDetails] = useState([]);
@@ -23,7 +25,7 @@ const Location = () => {
         setLocationDetails(data);
         setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch(() => history.push("/"));
   };
   useEffect(() => {
     setLoading(true);
@@ -33,11 +35,7 @@ const Location = () => {
       longitude != null &&
       countryCode != null
     ) {
-      setCountryName(
-        countryList.find((country) => {
-          return country.country_code === countryCode;
-        }).name
-      );
+      setCountryName(getName(countryCode));
       fetchLocation(location, countryCode, API_KEY)
         .then((data) => {
           setCurrent(data);
@@ -47,14 +45,14 @@ const Location = () => {
             oneCall(data.coord.lat, data.coord.lon);
           }
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          history.push("/");
         });
     } else {
       history.push("/*");
     }
   }, [location, countryCode]);
-  if (loading) return <Loading />;
+  if (loading || fetching) return <Loading />;
 
   return (
     <Main
