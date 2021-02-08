@@ -2,6 +2,7 @@ import React, { useReducer, useEffect } from "react";
 import { WiHumidity, WiBarometer } from "react-icons/wi";
 import { MdVisibility } from "react-icons/md";
 import { useApp } from "../../contexts/AppProvider";
+import { getCode } from "country-list";
 
 const WeatherCard = ({ city, dt, timezone_offset, details, country }) => {
   const { unit, screenWidth, iconKey, ConvertTemperature } = useApp();
@@ -79,7 +80,9 @@ const WeatherCard = ({ city, dt, timezone_offset, details, country }) => {
           <div className="weather-card-title">
             <p>
               {screenWidth < 600 ? "" : "Weather at"} {state.cityName}{" "}
-              {screenWidth < 600 ? "" : state.country}
+              {screenWidth < 600
+                ? `- ${getCode(state.country)}`
+                : state.country}
             </p>
             <div className="time-wrapper">
               <p>
